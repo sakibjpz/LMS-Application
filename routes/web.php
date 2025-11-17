@@ -81,6 +81,10 @@ Route::middleware(['auth', 'verified', 'role:instructor'])
   /* Control Slider */
     Route::resource('slider', SliderController::class);
 
+    Route::prefix('admin')->name('admin.')->group(function () {
+    Route::resource('slider', SliderController::class);
+});
+
 //Frontend Route
 
 Route::get('/', [FrontendDashboardController::class, 'home'])->name('frontend.home');
