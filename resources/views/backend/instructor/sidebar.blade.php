@@ -20,11 +20,11 @@
 
         </li>
 
-        {{-- @if(isApprovedUser()) --}}
+        @if(isApprovedUser())
 
-
-{{-- 
         <li class="{{ setSidebar(['instructor.course*', 'instructor.course-section*']) }}">
+          <li> 
+            
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class="bx bx-category"></i>
                 </div>
@@ -37,7 +37,7 @@
 
             </ul>
         </li>
-
+{{-- 
          <li class="{{ setSidebar(['instructor.coupon*']) }}">
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class="bx bx-category"></i>
@@ -50,9 +50,9 @@
                 </li>
 
             </ul>
-        </li> --}}
+        </li>  --}}
 
-        {{-- @endif --}}
+         @endif
 
 
     </ul>

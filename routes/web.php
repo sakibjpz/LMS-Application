@@ -2,15 +2,18 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\admin\InfoController;
 use App\Http\Controllers\backend\AdminController;
-use App\Http\Controllers\backend\InstructorController;
-use App\Http\Controllers\backend\InstructorProfileController;
-use App\Http\Controllers\backend\AdminProfileController;
-use App\Http\Controllers\backend\CategoryController;
-use App\Http\Controllers\backend\SubcategoryController;
-use App\Http\Controllers\frontend\FrontendDashboardController;
-use App\Http\Controllers\backend\SliderController;
 use App\Http\Controllers\frontend\CartController;
+use App\Http\Controllers\backend\CourseController;
+use App\Http\Controllers\backend\SliderController;
+use App\Http\Controllers\backend\CategoryController;
+use App\Http\Controllers\backend\InstructorController;
+use App\Http\Controllers\backend\SubcategoryController;
+use App\Http\Controllers\backend\AdminProfileController;
+use App\Http\Controllers\backend\AdminInstructorController;
+use App\Http\Controllers\backend\InstructorProfileController;
+use App\Http\Controllers\frontend\FrontendDashboardController;
 
 
 
@@ -46,6 +49,21 @@ Route::middleware(['auth', 'verified', 'role:admin'])
     Route::resource('category', CategoryController::class);
     Route::resource('subcategory', SubcategoryController::class);
 
+    /* Control Slider */
+    Route::resource('slider', SliderController::class);
+
+    // info controller
+ Route::resource('info', InfoController::class);
+
+
+//Controll instructor
+
+ Route::resource('instructor', AdminInstructorController::class);
+    Route::post('/update-status', [AdminInstructorController::class, 'updateStatus'])->name('instructor.status');
+    Route::get('/instructor-active-list', [AdminInstructorController::class, 'instructorActive'])->name('instructor.active');
+
+ 
+
 
     });
 
@@ -64,11 +82,14 @@ Route::middleware(['auth', 'verified', 'role:instructor'])
         Route::post('/password/setting', [AdminProfileController::class, 'passwordSetting'])->name('passwordSetting');
         Route::post('/profile/store', [AdminProfileController::class, 'store'])->name('profile.store');
 
+
+
+        Route::resource('course', CourseController::class);
+        Route::get('/get-subcategories/{categoryId}', [CategoryController::class, 'getSubcategories']);
+
+
         
     });
-
-    
-    
 
 
 // // Normal user profile routes
@@ -78,12 +99,18 @@ Route::middleware(['auth', 'verified', 'role:instructor'])
 //     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 // });
 
-  /* Control Slider */
-    Route::resource('slider', SliderController::class);
+  
+//     Route::prefix('admin')->name('admin.')->group(function () {
+//     Route::resource('slider', SliderController::class);
+// });
 
-    Route::prefix('admin')->name('admin.')->group(function () {
-    Route::resource('slider', SliderController::class);
-});
+
+// Route::prefix('admin')->name('admin.')->group(function () {
+//     Route::resource('info', InfoController::class);
+// });
+
+
+
 
 //Frontend Route
 
