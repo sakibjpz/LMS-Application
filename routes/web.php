@@ -11,6 +11,7 @@ use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\backend\InstructorController;
 use App\Http\Controllers\backend\SubcategoryController;
 use App\Http\Controllers\backend\AdminProfileController;
+use App\Http\Controllers\backend\CourseSectionController;
 use App\Http\Controllers\backend\AdminInstructorController;
 use App\Http\Controllers\backend\InstructorProfileController;
 use App\Http\Controllers\frontend\FrontendDashboardController;
@@ -86,18 +87,19 @@ Route::middleware(['auth', 'verified', 'role:instructor'])
 
         Route::resource('course', CourseController::class);
         Route::get('/get-subcategories/{categoryId}', [CategoryController::class, 'getSubcategories']);
+         Route::resource('course-section', CourseSectionController::class);
 
 
         
     });
 
 
-// // Normal user profile routes
-// Route::middleware('auth')->group(function () {
-//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-// });
+// Normal user profile routes
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
   
 //     Route::prefix('admin')->name('admin.')->group(function () {
