@@ -25,6 +25,8 @@ class FrontendDashboardController extends Controller
         $course_category = Category::with('course', 'course.user', 'course.course_goal')->get();
 
         return view('frontend.index', compact('all_sliders', 'all_info', 'all_categories', 'categories', 'course_category'));
+        
+
     }
 
     public function view($slug)

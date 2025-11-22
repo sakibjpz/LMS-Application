@@ -87,7 +87,10 @@ Route::middleware(['auth', 'verified', 'role:instructor'])
 
         Route::resource('course', CourseController::class);
         Route::get('/get-subcategories/{categoryId}', [CategoryController::class, 'getSubcategories']);
-         Route::resource('course-section', CourseSectionController::class);
+        Route::resource('course-section', CourseSectionController::class);
+
+        Route::resource('lecture', LectureController::class);
+
 
 
         
@@ -112,11 +115,26 @@ Route::middleware('auth')->group(function () {
 // });
 
 
+//user Route
+
+Route::middleware(['auth', 'verified', 'role:user'])->prefix('user')->name('user.')->group(function () {
+    Route::get('/dashboard', [UserController::class, 'dashboard'])->name('dashboard');
+    Route::post('/logout', [UserController::class, 'destroy'])
+        ->name('logout');
+
+    
+
+   
+});
+
+
 
 
 //Frontend Route
 
 Route::get('/', [FrontendDashboardController::class, 'home'])->name('frontend.home');
+Route::get('/course-details/{slug}', [FrontendDashboardController::class, 'view'])->name('course-details');
+
 
 
 
