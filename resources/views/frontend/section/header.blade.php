@@ -11,10 +11,10 @@ $categories = getCategories();
                     <div class="header-widget">
                         <ul class="generic-list-item d-flex flex-wrap align-items-center fs-14">
                             <li class="d-flex align-items-center pr-3 mr-3 border-right border-right-gray"><i
-                                    class="la la-phone mr-1"></i><a href="tel:00123456789"> (00) 0172675089</a>
+                                    class="la la-phone mr-1"></i><a href="tel:00123456789"> (00) 123 456 789</a>
                             </li>
                             <li class="d-flex align-items-center"><i class="la la-envelope-o mr-1"></i><a
-                                    href="mailto:contact@sakib.com"> shadmansakib183@gmail.com</a></li>
+                                    href="mailto:contact@aduca.com"> contact@aduca.com</a></li>
                         </ul>
                     </div><!-- end header-widget -->
                 </div><!-- end col-lg-6 -->
@@ -163,7 +163,7 @@ $categories = getCategories();
                             </nav><!-- end main-menu -->
 
 
-{{-- 
+
                              <!-----wishlist start--->
 
                              <div class="shop-cart mr-4">
@@ -206,7 +206,7 @@ $categories = getCategories();
 
                                     </li>
                                 </ul>
-                            </div><!-- end wishlist --> --}}
+                            </div><!-- end wishlist -->
 
 
                             <div class="shop-cart mr-4" id='cart'>

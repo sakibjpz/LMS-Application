@@ -159,9 +159,12 @@
 
 
 
-         <!-- course section Modal -->
+        <!-- course section Modal -->
         @include('backend.instructor.course-section.modal.create-section-modal')
- 
+
+
+
+
 
     </div>
 @endsection
@@ -174,8 +177,8 @@
             e.preventDefault();
 
             let Id = $(this).data('id');
+            let deleteUrl = "{{ route('instructor.lecture.destroy', ':id') }}".replace(':id', Id);
 
-          
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",

@@ -10,7 +10,7 @@
 
             <!-- Modal body -->
             <div class="modal-body">
-                <form method="post" action="" enctype="multipart/form-data">
+                <form method="post" action="{{ route('instructor.lecture.store') }}" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="course_id" value="{{ $course->id }}" />
                     <input type="hidden" name="section_id" value="{{ $data->id }}" />

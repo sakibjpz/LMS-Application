@@ -56,7 +56,7 @@
         </li>
 
 
-        {{-- <li class="{{ setSidebar(['admin.course*']) }}">
+        <li class="{{ setSidebar(['admin.course*']) }}">
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class="bx bx-category"></i>
                 </div>
@@ -84,7 +84,7 @@
 
 
             </ul>
-        </li> --}}
+        </li>
 
 
 
@@ -100,18 +100,18 @@
                 <li class="{{ setSidebar(['admin.slider*']) }}">
                     <a href="{{route('admin.slider.index')}}"><i class='bx bx-radio-circle'></i>Manage Slider</a>
                 </li>
- 
-                 <li class="{{ setSidebar(['admin.info*']) }}">
+
+                <li class="{{ setSidebar(['admin.info*']) }}">
                     <a href="{{route('admin.info.index')}}"><i class='bx bx-radio-circle'></i>Manage Info</a>
-                </li> 
+                </li>
 
-                 {{-- <li class="{{ setSidebar(['admin.partner*']) }}">
+                 <li class="{{ setSidebar(['admin.partner*']) }}">
                     <a href="{{route('admin.partner.index')}}"><i class='bx bx-radio-circle'></i>Manage Partner</a>
-                </li> --}}
+                </li>
 
-                 {{-- <li class="{{ setSidebar(['admin.site-setting*']) }}">
+                 <li class="{{ setSidebar(['admin.site-setting*']) }}">
                     <a href="{{route('admin.site-setting.index')}}"><i class='bx bx-radio-circle'></i>Site Settings</a>
-                </li> --}}
+                </li>
 
 
             </ul>
@@ -119,7 +119,7 @@
 
 
 
-{{-- 
+
          <li>
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class="bx bx-category"></i>
@@ -142,7 +142,7 @@
 
             </ul>
         </li>
- --}}
+
 
 
 

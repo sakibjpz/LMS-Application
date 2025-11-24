@@ -69,20 +69,20 @@ if (!function_exists('setSidebarActive')) {
 }
 
 
-// /*  wishlist data */
-// if (!function_exists('getWishlist')) {
-//     function getWishlist()
-//     {
+/*  wishlist data */
+if (!function_exists('getWishlist')) {
+    function getWishlist()
+    {
 
-//         // Check if user is authenticated
-//         if (Auth::check()) {
-//             $user_id = Auth::user()->id;
-//             return Wishlist::where('user_id', $user_id)->with('course', 'course.user')->get();
-//         }
-//         // If user is not logged in, return an empty collection or handle as needed
-//         return collect();
-//     }
-// }
+        // Check if user is authenticated
+        if (Auth::check()) {
+            $user_id = Auth::user()->id;
+            return Wishlist::where('user_id', $user_id)->with('course', 'course.user')->get();
+        }
+        // If user is not logged in, return an empty collection or handle as needed
+        return collect();
+    }
+}
 
 
 //Global Auth Check
