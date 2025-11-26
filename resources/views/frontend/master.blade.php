@@ -3,7 +3,7 @@
 
 <head>
 
-    <title>Aduca - Learning Management System</title>
+    <title>Civil Tech - Learning Management System</title>
 
     <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">

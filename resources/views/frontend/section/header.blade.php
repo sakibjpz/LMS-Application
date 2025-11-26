@@ -14,7 +14,7 @@ $categories = getCategories();
                                     class="la la-phone mr-1"></i><a href="tel:00123456789"> (00) 123 456 789</a>
                             </li>
                             <li class="d-flex align-items-center"><i class="la la-envelope-o mr-1"></i><a
-                                    href="mailto:contact@aduca.com"> contact@aduca.com</a></li>
+                                    href="mailto:contact@aduca.com"> contact@civiltech.com</a></li>
                         </ul>
                     </div><!-- end header-widget -->
                 </div><!-- end col-lg-6 -->

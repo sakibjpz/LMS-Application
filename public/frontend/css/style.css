@@ -5357,27 +5357,31 @@ div.datedropper .picker .pick-lg-b li {
       transform: rotate(-180deg); }
 
 /*====== logo-box =======*/
-.logo-box {
-  display: -webkit-flex;
-  display: -ms-flex;
-  display: flex;
-  -ms-flex-align: center;
-  align-items: center;
-  position: relative; }
-  @media (max-width: 1199px) {
-    .logo-box {
-      -ms-flex-pack: justify;
-      justify-content: space-between; } }
-  .logo-box .logo {
-    display: inline-block; }
 
-.logo--box {
-  display: none; }
-  @media (max-width: 1199px) {
-    .logo--box {
-      display: -webkit-flex;
-      display: -ms-flex;
-      display: flex; } }
+.logo-box {
+  display: flex;
+  align-items: center; 
+  justify-content: space-between; 
+  position: relative;
+}
+
+.logo-box .logo img {
+  max-height: 70px; 
+  width: 160px;      
+  display: block;   
+  border-radius: 5px;
+}
+
+@media (max-width: 1199px) {
+  .logo-box {
+    justify-content: space-between; 
+  }
+
+  .logo--box {
+    display: flex;
+  }
+}
+
 
 /*====== menu-category =======*/
 @media (max-width: 1199px) {

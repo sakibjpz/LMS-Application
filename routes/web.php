@@ -23,11 +23,12 @@ use App\Http\Controllers\backend\SubcategoryController;
 use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\backend\UserProfileController;
 use App\Http\Controllers\frontend\CartController;
-use App\Http\Controllers\frontend\CheckoutController;
+use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\frontend\FrontendDashboardController;
 use App\Http\Controllers\frontend\WishlistController;
 use App\Http\Controllers\LectureController;
 use App\Http\Controllers\SocialController;
+
 
 /*
 Route::get('/dashboard', function () {
@@ -185,8 +186,7 @@ Route::middleware('auth')->group(function () {
     //Route::resource('rating', RatingController::class);
 });
 
-
-
+Route::get('/proceed', [CheckoutController::class, 'proceed'])->name('proceed.page');
 
 
 

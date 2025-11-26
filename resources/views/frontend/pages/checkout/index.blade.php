@@ -264,8 +264,11 @@
                                         taxes for purchases made in certain tax jurisdictions.</p>
                                     <p class="fs-14 lh-22 mb-3">By completing your purchase you agree to these <a
                                             href="#" class="text-color hover-underline">Terms of Service.</a></p>
-                                    <button type="submit" class="btn theme-btn w-100">Proceed <i
-                                            class="la la-arrow-right icon ml-1"></i></button>
+                                    <button type="button" onclick="window.location='{{ route('proceed.page') }}'" class="btn theme-btn w-100">
+    Proceed <i class="la la-arrow-right icon ml-1"></i>
+</button>
+
+
                                 </div>
                             </div><!-- end card-body -->
                         </div><!-- end card -->

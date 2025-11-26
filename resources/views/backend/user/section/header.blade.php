@@ -6,7 +6,7 @@
                     <div class="col-lg-12">
                         <div class="logo-box logo--box">
                             <a href="index.html" class="logo">
-                                <img src="{{asset('frontend/images/logo.png')}}" alt="logo">
+                                {{-- <img src="{{asset('frontend/images/logo.png')}}" alt="logo"> --}}
 
                             </a>
                             <div class="user-btn-action">
