@@ -14,9 +14,9 @@ use Illuminate\Support\Facades\Auth;
 
 class FrontendDashboardController extends Controller
 {
+    // Home page
     public function home()
     {
-
         $all_sliders = Slider::all();
         $all_info = InfoBox::all();
 
@@ -24,41 +24,79 @@ class FrontendDashboardController extends Controller
         $categories = Category::all();
         $course_category = Category::with('course', 'course.user', 'course.course_goal')->get();
 
-        return view('frontend.index', compact('all_sliders', 'all_info', 'all_categories', 'categories', 'course_category'));
+        return view(
+            'frontend.index',
+            compact('all_sliders', 'all_info', 'all_categories', 'categories', 'course_category')
+        );
     }
 
-    public function view($slug)
+
+    public function wishlist()
+{
+    $userId = auth()->id(); // logged-in user
+
+    // Fetch wishlist items for this user
+    $wishlistItems = Wishlist::where('user_id', $userId)
+        ->with('course.user') // load related course + instructor
+        ->get();
+
+    return view('frontend.wishlist.index', compact('wishlistItems'));
+}
+
+
+    // Course details page
+    public function view($id)
     {
+        // Find course by ID safely
+        $course = Course::with('category', 'subcategory', 'user')->findOrFail($id);
 
-        $course = Course::where('course_name_slug', $slug)->with('category', 'subcategory', 'user')->first();
+        // Total lectures
         $total_lecture = CourseLecture::where('course_id', $course->id)->count();
-        $course_content = CourseSection::where('course_id', $course->id)->with('lecture')->get();
 
-        // Get the currently authenticated user's ID
+        // Course content sections
+        $course_content = CourseSection::where('course_id', $course->id)
+                                        ->with('lecture')
+                                        ->get();
+
+        // Get authenticated user ID (if any)
         $userId = Auth::id();
 
-        // Fetch similar courses but exclude those already ordered by the student
+        // Similar courses in same category, excluding current course
         $similarCourses = Course::where('category_id', $course->category_id)
-            ->where('id', '!=', $course->id)->get();
+                                ->where('id', '!=', $course->id)
+                                ->get();
 
+        // All categories
         $all_category = Category::orderBy('name', 'asc')->get();
 
-        //more course instructor
+        // More courses by same instructor, excluding current course
+        $more_course_instructor = Course::where('instructor_id', $course->instructor_id)
+                                        ->where('id', '!=', $course->id)
+                                        ->with('user')
+                                        ->get();
 
-        $more_course_instructor = Course::where('instructor_id', $course->instructor_id)->where('id', '!=', $course->id)->with('user')->get();
-
-        $total_lecture = CourseLecture::where('course_id', $course->id)->count();
-
-
+        // Total lecture duration in minutes
         $total_minutes = CourseLecture::where('course_id', $course->id)->sum('video_duration');
 
+        // Convert total minutes to H:M:S
         $hours = floor($total_minutes / 60);
         $minutes = floor($total_minutes % 60);
         $seconds = round(($total_minutes - floor($total_minutes)) * 60);
 
         $total_lecture_duration = sprintf('%02d:%02d:%02d', $hours, $minutes, $seconds);
 
-
-        return view('frontend.pages.course-details.index', compact('course', 'total_lecture', 'course_content', 'similarCourses', 'all_category', 'more_course_instructor', 'total_minutes', 'total_lecture_duration'));
+        return view(
+            'frontend.pages.course-details.index',
+            compact(
+                'course',
+                'total_lecture',
+                'course_content',
+                'similarCourses',
+                'all_category',
+                'more_course_instructor',
+                'total_minutes',
+                'total_lecture_duration'
+            )
+        );
     }
 }

@@ -1,33 +1,35 @@
 <?php
 
-use App\Http\Controllers\admin\InfoController;
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SocialController;
+use App\Http\Controllers\LectureController;
+use App\Http\Controllers\frontend\ProceedController;
+use App\Http\Controllers\ProfileController;
+
+use App\Http\Controllers\admin\InfoController;
+use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\backend\AdminController;
-use App\Http\Controllers\backend\AdminCourseController;
-use App\Http\Controllers\backend\AdminInstructorController;
-use App\Http\Controllers\backend\AdminProfileController;
-use App\Http\Controllers\backend\BackendOrderController;
-use App\Http\Controllers\backend\CategoryController;
+use App\Http\Controllers\backend\OrderController;
+use App\Http\Controllers\frontend\CartController;
 use App\Http\Controllers\backend\CouponController;
 use App\Http\Controllers\backend\CourseController;
-use App\Http\Controllers\backend\CourseSectionController;
-use App\Http\Controllers\backend\InstructorController;
-use App\Http\Controllers\backend\InstructorProfileController;
-use App\Http\Controllers\backend\OrderController;
+use App\Http\Controllers\backend\SliderController;
 use App\Http\Controllers\backend\PartnerController;
 use App\Http\Controllers\backend\SettingController;
-use App\Http\Controllers\backend\SiteSettingController;
-use App\Http\Controllers\backend\SliderController;
-use App\Http\Controllers\backend\SubcategoryController;
-use App\Http\Controllers\backend\UserController;
-use App\Http\Controllers\backend\UserProfileController;
-use App\Http\Controllers\frontend\CartController;
-use App\Http\Controllers\CheckoutController;
-use App\Http\Controllers\frontend\FrontendDashboardController;
+use App\Http\Controllers\backend\CategoryController;
+use App\Http\Controllers\frontend\CheckoutController;
 use App\Http\Controllers\frontend\WishlistController;
-use App\Http\Controllers\LectureController;
-use App\Http\Controllers\SocialController;
+use App\Http\Controllers\backend\InstructorController;
+use App\Http\Controllers\backend\AdminCourseController;
+use App\Http\Controllers\backend\SiteSettingController;
+use App\Http\Controllers\backend\SubcategoryController;
+use App\Http\Controllers\backend\UserProfileController;
+use App\Http\Controllers\backend\AdminProfileController;
+use App\Http\Controllers\backend\BackendOrderController;
+use App\Http\Controllers\backend\CourseSectionController;
+use App\Http\Controllers\backend\AdminInstructorController;
+use App\Http\Controllers\backend\InstructorProfileController;
+use App\Http\Controllers\frontend\FrontendDashboardController;
 
 
 /*
@@ -154,7 +156,7 @@ Route::middleware(['auth', 'verified', 'role:user'])->prefix('user')->name('user
 //Frontend Route
 
 Route::get('/', [FrontendDashboardController::class, 'home'])->name('frontend.home');
-Route::get('/course-details/{slug}', [FrontendDashboardController::class, 'view'])->name('course-details');
+Route::get('/course-details/{id}', [FrontendDashboardController::class, 'view'])->name('course-details');
 
 /* wishlist controller  */
 
@@ -186,7 +188,16 @@ Route::middleware('auth')->group(function () {
     //Route::resource('rating', RatingController::class);
 });
 
-Route::get('/proceed', [CheckoutController::class, 'proceed'])->name('proceed.page');
+Route::get('/proceed', [ProceedController::class, 'proceed'])->name('proceed.page');
+Route::post('/proceed/payment', [ProceedController::class, 'proceedPayment'])->name('proceed.payment');
+
+Route::get('/courses', [\App\Http\Controllers\backend\CourseController::class, 'allCourses'])->name('courses.all');
+
+Route::get('/category/{id}', [\App\Http\Controllers\frontend\CategoryController::class, 'show'])
+     ->name('category.show');
+
+
+
 
 
 

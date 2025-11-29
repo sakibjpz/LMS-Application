@@ -147,7 +147,7 @@ $categories = getCategories();
 
                                     </li>
                                     <li>
-                                        <a href="#"">All Courses </a>
+                                        <a href="{{ route('courses.all') }}">All Courses </a>
 
                                     </li>
                                     <li>
@@ -256,7 +256,7 @@ $categories = getCategories();
 
             </li>
             <li>
-                <a href=""">All Courses</a>
+                <a href="">All Courses</a>
 
             </li>
             <li>

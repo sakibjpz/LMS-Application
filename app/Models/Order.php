@@ -3,25 +3,24 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\PaymentAttempt;
 
 class Order extends Model
 {
-     protected $guarded = [];
+    protected $fillable = [
+        'user_id',
+        'total_amount',
+        'currency',
+        'status',
+        'metadata'
+    ];
 
-       public function user(){
-        return $this->belongsTo(User::class, 'user_id', 'id');
-    }
+    protected $casts = [
+        'metadata' => 'array'
+    ];
 
-     public function instructor(){
-        return $this->belongsTo(User::class, 'instructor_id', 'id');
-    }
-
-    public function course(){
-        return $this->belongsTo(Course::class, 'course_id', 'id');
-    }
-
-    public function payment(){
-        return $this->belongsTo(Payment::class, 'payment_id', 'id');
+    public function attempts()
+    {
+        return $this->hasMany(PaymentAttempt::class);
     }
 }
- 

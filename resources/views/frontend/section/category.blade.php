@@ -32,8 +32,10 @@
                                     <a href="#">{{ $item->name }}</a>
                                 </h3>
                                 <p class="cat__meta">0 courses</p>
-                                <a href="#" class="btn theme-btn theme-btn-sm theme-btn-white">Explore<i
-                                        class="la la-arrow-right icon ml-1"></i></a>
+                                <a href="{{ route('category.show', $item->id) }}" class="btn theme-btn theme-btn-sm theme-btn-white">
+    Explore <i class="la la-arrow-right icon ml-1"></i>
+</a>
+
                             </div>
                         </div><!-- end category-content -->
                     </div><!-- end category-item -->

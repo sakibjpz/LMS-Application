@@ -122,4 +122,12 @@ class CourseController extends Controller
 
         return redirect()->route('instructor.course.index')->with('success', 'Course deleted successfully.');
     }
+
+    public function allCourses()
+{
+    // Fetch all courses for frontend
+    $courses = Course::with('category', 'subCategory')->latest()->paginate(6);
+
+    return view('frontend.courses.all', compact('courses'));
+}
 }

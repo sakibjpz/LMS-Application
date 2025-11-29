@@ -32,7 +32,7 @@
                                     <div class="card card-item card-preview"
                                         data-tooltip-content="#{{ $course->course_name_slug }}">
                                         <div class="card-image">
-                                            <a href="{{ route('course-details', $course->course_name_slug) }}"
+                                            <a href="{{ route('course-details', $course->id) }}"
                                                 class="d-block">
 
                                                 <img class="card-img-top lazy" width="240" height="240"
@@ -63,7 +63,7 @@
                                             <h6 class="ribbon ribbon-blue-bg fs-14 mb-3">All Levels</h6>
 
                                             <h5 class="card-title">
-                                                <a href="{{ route('course-details', $course->course_name_slug) }}">
+                                                <a href="{{ route('course-details', $course->id) }}">
                                                     {{ \Illuminate\Support\Str::limit($course->course_name, 50) }}
                                                 </a>
                                             </h5>
