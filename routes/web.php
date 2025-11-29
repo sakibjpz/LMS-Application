@@ -3,11 +3,11 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SocialController;
 use App\Http\Controllers\LectureController;
-use App\Http\Controllers\frontend\ProceedController;
 use App\Http\Controllers\ProfileController;
-
 use App\Http\Controllers\admin\InfoController;
+
 use App\Http\Controllers\backend\UserController;
+
 use App\Http\Controllers\backend\AdminController;
 use App\Http\Controllers\backend\OrderController;
 use App\Http\Controllers\frontend\CartController;
@@ -17,6 +17,7 @@ use App\Http\Controllers\backend\SliderController;
 use App\Http\Controllers\backend\PartnerController;
 use App\Http\Controllers\backend\SettingController;
 use App\Http\Controllers\backend\CategoryController;
+use App\Http\Controllers\frontend\ProceedController;
 use App\Http\Controllers\frontend\CheckoutController;
 use App\Http\Controllers\frontend\WishlistController;
 use App\Http\Controllers\backend\InstructorController;
@@ -30,6 +31,7 @@ use App\Http\Controllers\backend\CourseSectionController;
 use App\Http\Controllers\backend\AdminInstructorController;
 use App\Http\Controllers\backend\InstructorProfileController;
 use App\Http\Controllers\frontend\FrontendDashboardController;
+use App\Http\Controllers\admin\BenefitController;
 
 
 /*
@@ -60,6 +62,13 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('ad
     Route::post('/profile/store', [AdminProfileController::class, 'store'])->name('profile.store');
     Route::get('/setting', [AdminProfileController::class, 'setting'])->name('setting');
     Route::post('/password/setting', [AdminProfileController::class, 'passwordSetting'])->name('passwordSetting');
+
+
+     // Benefit CRUD
+
+
+Route::resource('benefit', BenefitController::class);
+
 
     /*  control Category & Subcategory  */
 
