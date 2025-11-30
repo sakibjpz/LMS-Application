@@ -8,6 +8,7 @@ use App\Http\Controllers\admin\InfoController;
 
 use App\Http\Controllers\backend\UserController;
 
+use App\Http\Controllers\admin\BenefitController;
 use App\Http\Controllers\backend\AdminController;
 use App\Http\Controllers\backend\OrderController;
 use App\Http\Controllers\frontend\CartController;
@@ -18,6 +19,8 @@ use App\Http\Controllers\backend\PartnerController;
 use App\Http\Controllers\backend\SettingController;
 use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\frontend\ProceedController;
+use App\Http\Controllers\Admin\TestimonialController;
+use App\Http\Controllers\frontend\CallbackController;
 use App\Http\Controllers\frontend\CheckoutController;
 use App\Http\Controllers\frontend\WishlistController;
 use App\Http\Controllers\backend\InstructorController;
@@ -28,10 +31,11 @@ use App\Http\Controllers\backend\UserProfileController;
 use App\Http\Controllers\backend\AdminProfileController;
 use App\Http\Controllers\backend\BackendOrderController;
 use App\Http\Controllers\backend\CourseSectionController;
+use App\Http\Controllers\backend\CallbackOptionController;
 use App\Http\Controllers\backend\AdminInstructorController;
 use App\Http\Controllers\backend\InstructorProfileController;
 use App\Http\Controllers\frontend\FrontendDashboardController;
-use App\Http\Controllers\admin\BenefitController;
+use App\Http\Controllers\backend\CallbackController as AdminCallbackController;
 
 
 /*
@@ -68,6 +72,15 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('ad
 
 
 Route::resource('benefit', BenefitController::class);
+
+
+Route::resource('testimonials', TestimonialController::class);
+
+//call back
+ Route::get('callback-requests', [AdminCallbackController::class, 'index'])->name('callback.index');
+
+
+ 
 
 
     /*  control Category & Subcategory  */
@@ -159,6 +172,9 @@ Route::middleware(['auth', 'verified', 'role:user'])->prefix('user')->name('user
     Route::get('wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
     Route::get('/wishlist-data', [WishlistController::class, 'getWishlist']);
     Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
+
+
+    Route::post('/callback', [CallbackController::class, 'store'])->name('callback.store');
 });
 
 
@@ -166,6 +182,15 @@ Route::middleware(['auth', 'verified', 'role:user'])->prefix('user')->name('user
 
 Route::get('/', [FrontendDashboardController::class, 'home'])->name('frontend.home');
 Route::get('/course-details/{id}', [FrontendDashboardController::class, 'view'])->name('course-details');
+
+
+// Show the callback form
+Route::get('/callback', [CallbackController::class, 'index'])->name('callback.form');
+
+// Handle form submission
+Route::post('/callback', [CallbackController::class, 'store'])->name('callback.store');
+
+
 
 /* wishlist controller  */
 

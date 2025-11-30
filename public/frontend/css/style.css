@@ -2098,6 +2098,38 @@ div.datedropper .picker .pick-lg-b li {
         width: 16px;
         height: 16px;
     }
+    .testimonial-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+.testimonial-carousel .testimonial-item {
+    width: 100% !important;
+    display: flex; /* if needed for layout */
+}
+
+
+/* Mobile / small screens */
+@media (max-width: 768px) {
+    .testimonial-item {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .testimonial-content {
+        margin-right: 0 !important;
+    }
+
+    .testimonial-video {
+        margin-top: 15px;
+    }
+
+    .testimonial-author {
+        justify-content: center;
+    }
+}
+
 
     @media (max-width: 968px) {
         .testimonial-container {

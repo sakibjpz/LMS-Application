@@ -110,6 +110,19 @@
         <i class='bx bx-radio-circle'></i>Manage Benefits
     </a>
 </li>
+<li class="{{ setSidebar(['admin.callback*']) }}">
+    <a href="{{ route('admin.callback.index') }}">
+        <i class='bx bx-radio-circle'></i>Manage Callback Requests
+    </a>
+</li>
+
+<li class="{{ setSidebar(['admin.testimonial*']) }}">
+    <a href="{{ route('admin.testimonials.index') }}">
+        <i class='bx bx-radio-circle'></i>Manage Testimonials
+    </a>
+</li>
+
+
 
 
                  <li class="{{ setSidebar(['admin.partner*']) }}">

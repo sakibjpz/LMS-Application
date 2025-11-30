@@ -11,24 +11,42 @@ use App\Models\InfoBox;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Benefit;
+use App\Models\CallbackOption;
+use App\Models\Testimonial;
+
+
 
 class FrontendDashboardController extends Controller
 {
-    // Home page
     public function home()
-    {
-        $all_sliders = Slider::all();
-        $all_info = InfoBox::all();
+{
+    $all_sliders = Slider::all();
+    $all_info = InfoBox::all();
 
-        $all_categories = Category::inRandomOrder()->limit(6)->get();
-        $categories = Category::all();
-        $course_category = Category::with('course', 'course.user', 'course.course_goal')->get();
+    $all_categories = Category::inRandomOrder()->limit(6)->get();
+    $categories = Category::all();
+    $course_category = Category::with('course', 'course.user', 'course.course_goal')->get();
 
-        return view(
-            'frontend.index',
-            compact('all_sliders', 'all_info', 'all_categories', 'categories', 'course_category')
-        );
-    }
+
+    // 🔥 Load all benefits from DB
+    $benefits = Benefit::all();
+
+    $courses = Course::all();
+
+
+     // ✅ Fetch all testimonials from DB
+    $testimonials = Testimonial::all();
+
+    return view(
+        'frontend.index',
+        compact('all_sliders', 'all_info', 'all_categories', 'categories', 'course_category', 'benefits','courses','testimonials')
+    );
+
+
+    
+}
+
 
 
     public function wishlist()

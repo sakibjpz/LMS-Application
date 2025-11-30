@@ -19,14 +19,14 @@
 
                         <div class="d-flex justify-content-between">
                             <h6>Benefit #{{ $benefit->id }}</h6>
-                            <form action="{{ route('admin.benefits.destroy', $benefit->id) }}" method="POST" onsubmit="return confirm('Delete this item?')">
+                            <form action="{{ route('admin.benefit.destroy', $benefit->id) }}" method="POST" onsubmit="return confirm('Delete this item?')">
                                 @csrf
                                 @method('DELETE')
                                 <button class="btn btn-danger btn-sm">Delete</button>
                             </form>
                         </div>
 
-                        <form method="POST" action="{{ route('admin.benefits.update', $benefit->id) }}">
+                        <form method="POST" action="{{ route('admin.benefit.update', $benefit->id) }}">
                             @csrf
                             @method('PUT')
 
@@ -71,7 +71,7 @@
 <div class="modal fade" id="addBenefitModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="POST" action="{{ route('admin.benefits.store') }}">
+            <form method="POST" action="{{ route('admin.benefit.store') }}">
                 @csrf
 
                 <div class="modal-header">
