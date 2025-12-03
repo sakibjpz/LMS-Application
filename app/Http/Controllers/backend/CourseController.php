@@ -130,4 +130,15 @@ class CourseController extends Controller
 
     return view('frontend.courses.all', compact('courses'));
 }
+public function learn($id)
+{
+    $course = Course::with(['course_goal', 'course_sections', 'course_lectures'])
+                    ->findOrFail($id);
+
+    return view('backend.user.learn', compact('course'));
+}
+
+
+
+
 }

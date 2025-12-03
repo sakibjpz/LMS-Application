@@ -14,8 +14,6 @@
     <link rel="icon" sizes="16x16" href="{{ asset('frontend/images/favicon.png') }}">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/>
 
 
     <!-- inject:css -->
@@ -25,8 +23,14 @@
     <!-- end inject -->
 
 </head>
+{{-- <style>
+    body{
+      background: url({{asset('frontend/images/SiteBackground.png')}})  
+    }
+</style> --}}
 
 <body>
+  
 
     <!-- start cssload-loader -->
     @include('frontend.section.preloader')

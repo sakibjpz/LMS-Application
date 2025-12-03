@@ -27,5 +27,24 @@ class Course extends Model
     {
         return $this->hasMany(CourseGoal::class, 'course_id', 'id');
     }
+    public function course_sections()
+{
+    return $this->hasMany(CourseSection::class, 'course_id', 'id');
+}
+
+// public function course_lectures()
+// {
+//     return $this->hasMany(CourseLecture::class, 'course_id', 'id');
+// }
+    public function orders()
+{
+    return $this->belongsToMany(
+        \App\Models\Order::class,
+        'order_items', // pivot table
+        'course_id',   // FK to course
+        'order_id'     // FK to order
+    );
+}
+
 
 }

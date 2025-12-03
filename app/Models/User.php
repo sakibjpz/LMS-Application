@@ -2,34 +2,57 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var list<string>
-     */
     protected $guarded = [];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var list<string>
-     */
     protected $hidden = [
         'password',
         'remember_token',
     ];
 
-    // Helper methods for role checking
+    // =======================================
+    // 🔥 RELATIONSHIPS
+    // =======================================
+
+    // 1. All orders by user
+    public function orders()
+    {
+        return $this->hasMany(\App\Models\Order::class, 'user_id', 'id');
+    }
+
+    // 2. User Cart
+    public function cart()
+    {
+        return $this->hasMany(\App\Models\Cart::class, 'user_id', 'id');
+    }
+
+    // 3. User Wishlist
+    public function wishlist()
+    {
+        return $this->hasMany(\App\Models\Wishlist::class, 'user_id', 'id');
+    }
+
+    // 4. Purchased Courses (clean version)
+public function purchasedCourses()
+{
+    return Course::whereHas('orders', function ($query) {
+        $query->where('user_id', $this->id)
+              ->where('status', 'paid');
+    });
+}
+
+
+
+    // =======================================
+    // ROLE HELPERS
+    // =======================================
 
     public function isAdmin()
     {
@@ -46,11 +69,10 @@ class User extends Authenticatable
         return $this->role === 'user';
     }
 
-    /**
-     * Get the attributes that should be cast.
-     *
-     * @return array<string, string>
-     */
+    // =======================================
+    // ATTRIBUTE CASTING
+    // =======================================
+
     protected function casts(): array
     {
         return [
@@ -58,4 +80,11 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function hasPurchased($courseId)
+{
+    return $this->purchasedCourses()
+                ->where('courses.id', $courseId)
+                ->exists();
+}
 }

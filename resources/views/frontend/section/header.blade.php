@@ -74,9 +74,6 @@ $categories = getCategories();
                         @endif
 
 
-
-
-
                     </div><!-- end header-widget -->
                 </div><!-- end col-lg-6 -->
             </div><!-- end row -->
@@ -89,7 +86,8 @@ $categories = getCategories();
                 <div class="row align-items-center">
                     <div class="col-lg-2">
                         <div class="logo-box">
-                            <a href="{{ route('frontend.home') }}" class="logo"><img src="{{asset('frontend/images/logo.png')}}" alt="logo"></a>
+                            
+                            <a href="{{ route('frontend.home') }}" class="logo"><img src="{{asset('frontend/images/civil_tech-logo 2.png')}}" alt="logo"></a>
                             <div class="user-btn-action">
                                 <div class="search-menu-toggle icon-element icon-element-sm shadow-sm mr-2"
                                     data-toggle="tooltip" data-placement="top" title="Search">
@@ -156,7 +154,7 @@ $categories = getCategories();
                                     </li>
 
                                     <li>
-                                        <a href="#">Blog </a>
+                                        <a href="{{ route('blog') }}">Blog </a>
 
                                     </li>
                                 </ul><!-- end ul -->
@@ -214,18 +212,6 @@ $categories = getCategories();
                                 <!--ajax loaded for cart frontend.pages.home.partial.cart  -->
 
                             </div><!-- end shop-cart -->
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

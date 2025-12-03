@@ -122,6 +122,11 @@
     </a>
 </li>
 
+<li class="{{ setSidebar(['admin.funfact*']) }}">
+    <a href="{{ route('admin.funfacts.index') }}">
+        <i class='bx bx-radio-circle'></i>Manage Funfacts
+    </a>
+</li>
 
 
 

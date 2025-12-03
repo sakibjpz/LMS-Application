@@ -2,12 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SocialController;
+  
+
+
 use App\Http\Controllers\LectureController;
+
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\admin\FunfactController;
+
 use App\Http\Controllers\admin\InfoController;
-
 use App\Http\Controllers\backend\UserController;
-
 use App\Http\Controllers\admin\BenefitController;
 use App\Http\Controllers\backend\AdminController;
 use App\Http\Controllers\backend\OrderController;
@@ -36,6 +40,8 @@ use App\Http\Controllers\backend\AdminInstructorController;
 use App\Http\Controllers\backend\InstructorProfileController;
 use App\Http\Controllers\frontend\FrontendDashboardController;
 use App\Http\Controllers\backend\CallbackController as AdminCallbackController;
+
+
 
 
 /*
@@ -73,8 +79,10 @@ Route::middleware(['auth', 'verified', 'role:admin'])->prefix('admin')->name('ad
 
 Route::resource('benefit', BenefitController::class);
 
+Route::resource('funfacts', FunfactController::class);
 
 Route::resource('testimonials', TestimonialController::class);
+
 
 //call back
  Route::get('callback-requests', [AdminCallbackController::class, 'index'])->name('callback.index');
@@ -174,7 +182,33 @@ Route::middleware(['auth', 'verified', 'role:user'])->prefix('user')->name('user
     Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
 
 
+    // Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    // Route::post('/checkout/demo', [CheckoutController::class, 'demoPayment'])->name('checkout.demo');
+
+
     Route::post('/callback', [CallbackController::class, 'store'])->name('callback.store');
+    // Route::middleware(['auth', 'user'])->group(function () {
+    //  Route::post('/demo/pay', [DemoPaymentController::class, 'pay'])
+    //    ->name('demo.pay');
+// });
+Route::middleware(['auth'])->group(function () {
+    Route::get('/my-courses', [UserController::class, 'myCourses'])->name('user.myCourses');
+});
+Route::middleware(['auth'])->group(function () {
+    // Show course learning page
+    Route::get('user/learn/{id}', [App\Http\Controllers\backend\UserController::class, 'learn'])
+        ->name('course.learn');
+});
+
+
+
+
+});
+
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
+    Route::post('/checkout/demo', [CheckoutController::class, 'demoPayment'])->name('checkout.demo');
 });
 
 
@@ -229,6 +263,20 @@ Route::get('/courses', [\App\Http\Controllers\backend\CourseController::class, '
 
 Route::get('/category/{id}', [\App\Http\Controllers\frontend\CategoryController::class, 'show'])
      ->name('category.show');
+
+
+   
+
+Route::get('/blog', function () {
+    return view('frontend.section.blog'); // make sure folder name is correct
+
+
+
+
+
+    
+})->name('blog');
+
 
 
 

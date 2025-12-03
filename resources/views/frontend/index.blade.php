@@ -22,11 +22,8 @@
 
 @include('frontend.section.testimonial-section')
 
-{{-- @include('frontend.section.testmonial') --}}
+@include('frontend.section.testmonial')
 
 @include('frontend.section.cta')
-
-
-
 
 @endsection
