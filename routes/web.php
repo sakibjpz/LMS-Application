@@ -182,6 +182,9 @@ Route::middleware(['auth', 'verified', 'role:user'])->prefix('user')->name('user
     Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
 
 
+    Route::get('/lecture/download/{id}', [LectureController::class, 'download'])->name('lecture.download');
+
+
     // Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
     // Route::post('/checkout/demo', [CheckoutController::class, 'demoPayment'])->name('checkout.demo');
 

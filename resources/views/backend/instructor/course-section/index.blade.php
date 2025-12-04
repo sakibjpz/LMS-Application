@@ -97,7 +97,8 @@
                             <hr>
 
                             <div class="mt-3 collapse show" id="demo{{$data->id}}">
-                                @foreach ($data['lectures'] as $lecture)
+                          @foreach ($data->course_lectures ?? [] as $lecture)
+
                                     <div style="display: flex; align-items:center; justify-content:space-between;">
                                         <div style="display: flex; gap: 10px">
                                             <span>

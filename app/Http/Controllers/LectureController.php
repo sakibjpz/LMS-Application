@@ -83,4 +83,15 @@ class LectureController extends Controller
 
         return redirect()->back()->with('success', 'Data deleted successfully.');
     }
+    public function download($id)
+{
+    $lecture = \App\Models\CourseLecture::findOrFail($id);
+
+    if (!$lecture->resources || !\Storage::exists('public/' . $lecture->resources)) {
+        abort(404);
+    }
+
+    return response()->download(storage_path('app/public/' . $lecture->resources));
+}
+
 }

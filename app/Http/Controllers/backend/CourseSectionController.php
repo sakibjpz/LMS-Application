@@ -52,7 +52,7 @@ class CourseSectionController extends Controller
     {
         $course = Course::find($id);
 
-        $course_wise_lecture = CourseSection::with('lectures')->where('course_id', $id)->get();
+       $course_wise_lecture = CourseSection::with('course_lectures')->where('course_id', $id)->get();
 
 
         return view('backend.instructor.course-section.index', compact('course',  'course_wise_lecture'));
