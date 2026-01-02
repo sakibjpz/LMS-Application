@@ -39,7 +39,13 @@ class User extends Authenticatable
         return $this->hasMany(\App\Models\Wishlist::class, 'user_id', 'id');
     }
 
-    // 4. Purchased Courses (clean version)
+    // 4. Courses taught by instructor
+public function courses()
+{
+    return $this->hasMany(\App\Models\Course::class, 'instructor_id');
+}
+
+    // 5. Purchased Courses (clean version)
 public function purchasedCourses()
 {
     return Course::whereHas('orders', function ($query) {

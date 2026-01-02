@@ -3,20 +3,19 @@
         <div class="col-lg-8 mr-auto">
             <div class="breadcrumb-content">
                 <ul class="generic-list-item generic-list-item-arrow d-flex flex-wrap align-items-center">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="#">{{ $course['category']['name'] }}</a></li>
-                    <li><a href="#">{{ $course['subcategory']['name'] }}</a></li>
+                    <li><a href="{{ route('frontend.home') }}">Home</a></li>
+                    <li><a href="#">{{ $course->course_title }}</a></li>
                 </ul>
 
                 <div class="section-heading">
-                    <h2 class="section__title">{{ $course['course_name'] }}</h2>
-                    <p class="section__desc pt-2 lh-30">{{ $course['course_title'] }}</p>
+                    <h2 class="section__title">{{ $course->course_name }}</h2>
+                    <p class="section__desc pt-2 lh-30">{{ $course->course_title }}</p>
                 </div><!-- end section-heading -->
 
                 <div class="d-flex flex-wrap align-items-center pt-3">
 
                     <h6 class="ribbon ribbon-lg mr-2 bg-3 text-white" style="text-transform: capitalize">
-                        {{ $course['label'] }}</h6>
+                        {{ $course->label }}</h6>
 
                     <div class="rating-wrap d-flex flex-wrap align-items-center">
                         <div class="review-stars">
@@ -33,7 +32,7 @@
                 </div><!-- end d-flex -->
 
                 <p class="pt-2 pb-1">Created by <a href="teacher-detail.html"
-                    class="text-color hover-underline">{{ $course['user']['name'] }}</a></p>
+                    class="text-color hover-underline">{{ $course->user->name }}</a></p>
 
                 <div class="d-flex flex-wrap align-items-center">
                     <p class="pr-3 d-flex align-items-center">

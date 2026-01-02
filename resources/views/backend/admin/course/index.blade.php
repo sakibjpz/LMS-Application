@@ -64,7 +64,7 @@
                                     </td>
                                     <td>{{ $item->course_name }}</td>
                                     <td>{{ $item->user->name }}</td>
-                                    <td>{{ $item->category->name }}</td>
+                                   
                                     <td>
                                         @if($item->discount_price)
                                         <span>${{$item->discount_price}}</span>

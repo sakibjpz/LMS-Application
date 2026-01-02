@@ -1,18 +1,20 @@
 <?php
 
+use App\Models\CourseLecture;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\SocialController;
   
 
 
+use App\Http\Controllers\SocialController;
 use App\Http\Controllers\LectureController;
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\admin\FunfactController;
-
 use App\Http\Controllers\admin\InfoController;
+
+use App\Http\Controllers\backend\BlogController;
 use App\Http\Controllers\backend\UserController;
 use App\Http\Controllers\admin\BenefitController;
+use App\Http\Controllers\admin\FunfactController;
 use App\Http\Controllers\backend\AdminController;
 use App\Http\Controllers\backend\OrderController;
 use App\Http\Controllers\frontend\CartController;
@@ -25,8 +27,8 @@ use App\Http\Controllers\backend\CategoryController;
 use App\Http\Controllers\frontend\ProceedController;
 use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\frontend\CallbackController;
+
 use App\Http\Controllers\frontend\CheckoutController;
-use App\Http\Controllers\frontend\WishlistController;
 use App\Http\Controllers\backend\InstructorController;
 use App\Http\Controllers\backend\AdminCourseController;
 use App\Http\Controllers\backend\SiteSettingController;
@@ -34,9 +36,12 @@ use App\Http\Controllers\backend\SubcategoryController;
 use App\Http\Controllers\backend\UserProfileController;
 use App\Http\Controllers\backend\AdminProfileController;
 use App\Http\Controllers\backend\BackendOrderController;
+use App\Http\Controllers\backend\ItDepartmentController;
 use App\Http\Controllers\backend\CourseSectionController;
+use App\Http\Controllers\backend\AdministrationController;
 use App\Http\Controllers\backend\CallbackOptionController;
 use App\Http\Controllers\backend\AdminInstructorController;
+use App\Http\Controllers\backend\RealLifeSectionController;
 use App\Http\Controllers\backend\InstructorProfileController;
 use App\Http\Controllers\frontend\FrontendDashboardController;
 use App\Http\Controllers\backend\CallbackController as AdminCallbackController;
@@ -89,6 +94,22 @@ Route::resource('testimonials', TestimonialController::class);
 
 
  
+// IT Department Routes
+Route::resource('it-department', ItDepartmentController::class);
+
+// Administration Routes
+Route::resource('administration', AdministrationController::class);
+
+
+// Blog Routes
+Route::resource('blog', \App\Http\Controllers\backend\BlogController::class);
+Route::delete('/blog-image/{image}', [BlogController::class, 'deleteImage'])->name('admin.blog.image.delete');
+
+
+// Real Life Section Routes
+Route::resource('real-life-section', RealLifeSectionController::class);
+
+ 
 
 
     /*  control Category & Subcategory  */
@@ -115,6 +136,13 @@ Route::resource('testimonials', TestimonialController::class);
     Route::post('/update-status', [AdminInstructorController::class, 'updateStatus'])->name('instructor.status');
     Route::get('/instructor-active-list', [AdminInstructorController::class, 'instructorActive'])->name('instructor.active');
 
+    Route::get('/team/trainers', [AdminInstructorController::class, 'trainers'])->name('admin.team.trainers');
+
+    Route::get('/instructor/{id}/edit', [AdminInstructorController::class, 'edit'])->name('admin.instructor.edit');
+    Route::put('/instructor/{id}', [AdminInstructorController::class, 'update'])->name('admin.instructor.update');
+
+    Route::get('instructor/create', [AdminInstructorController::class, 'create'])->name('instructor.create');
+    Route::post('instructor/store', [AdminInstructorController::class, 'store'])->name('instructor.store');
     /*  Setting Controller */
     Route::get('/mail-setting', [SettingController::class, 'mailSetting'])->name('mailSetting');
     Route::put('/mail-settings/update', [SettingController::class, 'updateMailSettings'])->name('mail.settings.update');
@@ -177,12 +205,15 @@ Route::middleware(['auth', 'verified', 'role:user'])->prefix('user')->name('user
 
     /* Wishlist controller */
 
-    Route::get('wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
-    Route::get('/wishlist-data', [WishlistController::class, 'getWishlist']);
-    Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
+    // Route::get('wishlist', [WishlistController::class, 'index'])->name('wishlist.index');
+    // Route::get('/wishlist-data', [WishlistController::class, 'getWishlist']);
+    // Route::delete('/wishlist/{id}', [WishlistController::class, 'destroy'])->name('wishlist.destroy');
 
+Route::get('lecture/{courseLecture}/resource/preview', [LectureController::class, 'preview'])
+    ->name('lecture.preview');
 
-    Route::get('/lecture/download/{id}', [LectureController::class, 'download'])->name('lecture.download');
+Route::get('lecture/{courseLecture}/resource/download', [LectureController::class, 'download'])
+    ->name('lecture.download');
 
 
     // Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
@@ -220,6 +251,24 @@ Route::middleware(['auth'])->group(function () {
 Route::get('/', [FrontendDashboardController::class, 'home'])->name('frontend.home');
 Route::get('/course-details/{id}', [FrontendDashboardController::class, 'view'])->name('course-details');
 
+//trainers route
+Route::get('/trainers', [FrontendDashboardController::class, 'trainers'])->name('trainers.page');
+
+Route::get('/trainer/{id}', [FrontendDashboardController::class, 'trainerDetails'])->name('trainer.details');
+
+
+Route::get('/administration', [FrontendDashboardController::class, 'administration'])->name('administration.page');
+
+
+// search route
+Route::get('/search', [FrontendDashboardController::class, 'search'])->name('course.search');
+
+// Add this after your search route
+Route::get('/search/autocomplete', [FrontendDashboardController::class, 'autocomplete'])->name('search.autocomplete');
+
+
+Route::get('/it-department', [FrontendDashboardController::class, 'itDepartment'])->name('it-department.page');
+
 
 // Show the callback form
 Route::get('/callback', [CallbackController::class, 'index'])->name('callback.form');
@@ -231,8 +280,8 @@ Route::post('/callback', [CallbackController::class, 'store'])->name('callback.s
 
 /* wishlist controller  */
 
-Route::get('/wishlist/all', [WishlistController::class, 'allWishlist']);
-Route::post('/wishlist/add', [WishlistController::class, 'addToWishlist']);
+// Route::get('/wishlist/all', [WishlistController::class, 'allWishlist']);
+// Route::post('/wishlist/add', [WishlistController::class, 'addToWishlist']);
 
 /* Cart Controller */
 Route::get('/cart', [CartController::class, 'index'])->name('cart');
@@ -270,15 +319,8 @@ Route::get('/category/{id}', [\App\Http\Controllers\frontend\CategoryController:
 
    
 
-Route::get('/blog', function () {
-    return view('frontend.section.blog'); // make sure folder name is correct
-
-
-
-
-
-    
-})->name('blog');
+Route::get('/blog', [FrontendDashboardController::class, 'blog'])->name('blog');
+Route::get('/blog/{slug}', [FrontendDashboardController::class, 'blogDetails'])->name('blog.details');
 
 
 

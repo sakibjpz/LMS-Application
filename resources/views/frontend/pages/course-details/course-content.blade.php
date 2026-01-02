@@ -35,29 +35,35 @@
                                     <i class="la la-plus"></i>
                                     <i class="la la-minus"></i>
                                     {{ $item->section_title }}
-                                    <span class="fs-15 text-gray font-weight-medium">{{$item['lecture']->count()}} lectures</span>
+                                    <span class="fs-15 text-gray font-weight-medium">{{ $item['lecture']?->count() ?? 0 }} lectures
+</span>
                                 </button>
                             </div>
                             <div id="collapse-{{ $index }}"
                                 class="collapse {{ $index == 0 ? 'show' : '' }}"
                                 aria-labelledby="heading-{{ $index }}" data-parent="#accordion">
-                                <div class="card-body">
-                                    <ul class="generic-list-item">
-                                        @foreach ($item['lecture'] as $lecture)
-                                            <li>
-                                                <a href="#"
-                                                    class="d-flex align-items-center justify-content-between text-color"
-                                                    data-toggle="modal" data-target="">
-                                                    <span>
-                                                        <i class="la la-play-circle mr-1"></i>
-                                                        {{ $lecture->lecture_title }}
-                                                    </span>
-                                                    <span>{{$lecture->video_duration}}</span>
-                                                </a>
-                                            </li>
-                                        @endforeach
-                                    </ul>
-                                </div>
+                              <div class="card-body">
+    <ul class="generic-list-item">
+        @if($item['lecture'])
+            @foreach ($item['lecture'] as $lecture)
+                <li>
+                    <a href="#"
+                       class="d-flex align-items-center justify-content-between text-color"
+                       data-toggle="modal" data-target="">
+                        <span>
+                            <i class="la la-play-circle mr-1"></i>
+                            {{ $lecture->lecture_title }}
+                        </span>
+                        <span>{{ $lecture->video_duration }}</span>
+                    </a>
+                </li>
+            @endforeach
+        @else
+            <li class="text-muted">No lectures available.</li>
+        @endif
+    </ul>
+</div>
+
                             </div>
                         </div>
                     @endforeach

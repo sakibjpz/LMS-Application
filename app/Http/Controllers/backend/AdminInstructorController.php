@@ -36,5 +36,65 @@ class AdminInstructorController extends Controller
         return view('backend.admin.instructor.active', compact('active_instructor'));
     }
 
+    public function trainers()
+{
+    $trainers = User::where('role', 'instructor')->get();
+    return view('backend.admin.team.trainers', compact('trainers'));
+}
+
+    public function edit($id)
+{
+    $instructor = User::findOrFail($id);
+    return view('backend.admin.instructor.edit', compact('instructor'));
+}
+
+public function update(Request $request, $id)
+{
+    $instructor = User::findOrFail($id);
+    
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users,email,' . $id,
+        'phone' => 'nullable|string|max:20',
+        'bio' => 'nullable|string',
+        'address' => 'nullable|string',
+    ]);
+    
+    $instructor->update($request->all());
+    
+    return redirect()->route('admin.instructor.index')
+                     ->with('success', 'Instructor profile updated successfully');
+}
+
+
+public function create()
+{
+    return view('backend.admin.instructor.create');
+}
+
+public function store(Request $request)
+{
+    $request->validate([
+        'name' => 'required|string|max:255',
+        'email' => 'required|email|unique:users',
+        'password' => 'required|min:8|confirmed',
+        'phone' => 'nullable|string|max:20',
+        'bio' => 'nullable|string',
+    ]);
+    
+    $instructor = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'phone' => $request->phone,
+        'bio' => $request->bio,
+        'role' => 'instructor',
+        'status' => 1,
+    ]);
+    
+    return redirect()->route('admin.instructor.index')
+                     ->with('success', 'Instructor created successfully');
+}
+
 
 }

@@ -24,6 +24,7 @@
 
                 <div class="col-lg-4 responsive-column-half">
                     <div class="category-item">
+                        
                         <img class="cat__img lazy" src="{{asset($item->image)}}" data-src="{{ asset($item->image ?? 'frontend/images/img2.jpg') }}"
                             alt="Category image" width="370" height="246">
                         <div class="category-content">

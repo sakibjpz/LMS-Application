@@ -83,15 +83,36 @@ class LectureController extends Controller
 
         return redirect()->back()->with('success', 'Data deleted successfully.');
     }
-    public function download($id)
+    public function download(CourseLecture $courseLecture)
 {
-    $lecture = \App\Models\CourseLecture::findOrFail($id);
+    $filePath = storage_path('app/public/' . $courseLecture->resources);
 
-    if (!$lecture->resources || !\Storage::exists('public/' . $lecture->resources)) {
-        abort(404);
+    if (!file_exists($filePath)) {
+        abort(404, 'File not found.');
     }
 
-    return response()->download(storage_path('app/public/' . $lecture->resources));
+    return response()->download($filePath, basename($filePath));
 }
+
+public function preview(CourseLecture $courseLecture)
+{
+    $filePath = storage_path('app/public/' . $courseLecture->resources);
+    
+
+    if (!file_exists($filePath)) {
+        abort(404, 'File not found.');
+    }
+
+    $ext = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+
+    if ($ext === 'pdf') {
+        // Show PDF inline
+        return response()->file($filePath);
+    } else {
+        // Other files: download
+        return response()->download($filePath, basename($filePath));
+    }
+}
+
 
 }

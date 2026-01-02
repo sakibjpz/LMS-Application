@@ -19,32 +19,30 @@ use App\Models\Testimonial;
 
 class FrontendDashboardController extends Controller
 {
-    public function home()
+   public function home()
 {
     $all_sliders = Slider::all();
     $all_info = InfoBox::all();
 
-    $all_categories = Category::inRandomOrder()->limit(6)->get();
-    $categories = Category::all();
-    $course_category = Category::with('course', 'course.user', 'course.course_goal')->get();
-
+    // $all_categories = Category::inRandomOrder()->limit(6)->get();
+    // $categories = Category::all();
+    // $course_category = Category::with('course', 'course.user', 'course.course_goal')->get();
 
     // 🔥 Load all benefits from DB
     $benefits = Benefit::all();
 
     $courses = Course::all();
 
-
-     // ✅ Fetch all testimonials from DB
+    // ✅ Fetch all testimonials from DB
     $testimonials = Testimonial::all();
+    
+    // ✅ Fetch active Real Life Section
+    $realLifeSection = \App\Models\RealLifeSection::active()->first();
 
     return view(
         'frontend.index',
-        compact('all_sliders', 'all_info', 'all_categories', 'categories', 'course_category', 'benefits','courses','testimonials')
+        compact('all_sliders', 'all_info',  'benefits', 'courses', 'testimonials', 'realLifeSection')
     );
-
-
-    
 }
 
 
@@ -61,6 +59,113 @@ class FrontendDashboardController extends Controller
     return view('frontend.wishlist.index', compact('wishlistItems'));
 }
 
+public function search(Request $request)
+{
+    $query = $request->input('query');
+    
+    $courses = Course::where('course_title', 'LIKE', "%{$query}%")
+                     ->orWhere('course_name', 'LIKE', "%{$query}%")
+                     ->orWhere('description', 'LIKE', "%{$query}%")
+                     ->get();
+    
+    return view('frontend.pages.search.search-results', compact('courses', 'query'));
+}
+
+public function autocomplete(Request $request)
+{
+    $query = $request->input('query');
+    
+    if (strlen($query) < 2) {
+        return response()->json([]);
+    }
+    
+    $courses = Course::where('course_title', 'LIKE', "%{$query}%")
+                     ->orWhere('course_name', 'LIKE', "%{$query}%")
+                     ->limit(10)
+                     ->get(['id', 'course_title', 'course_image']);
+    
+    return response()->json($courses);
+}
+
+
+public function trainers()
+{
+    // Get all users with role 'instructor'
+    $trainers = \App\Models\User::where('role', 'instructor')->get();
+    
+    // Debug: Check what we're getting
+    \Log::info('Trainers found: ' . $trainers->count());
+    \Log::info('Trainers: ' . $trainers->pluck('name'));
+    
+    return view('frontend.pages.trainers.index', compact('trainers'));
+}
+
+public function trainerDetails($id)
+{
+    $trainer = \App\Models\User::where('role', 'instructor')
+                               ->where('id', $id)
+                               ->firstOrFail();
+    
+    $courses = $trainer->courses()->where('status', 1)->get();
+    
+    return view('frontend.pages.trainers.details', compact('trainer', 'courses'));
+}
+
+public function itDepartment()
+{
+    $members = \App\Models\ItDepartment::active()->ordered()->get();
+    return view('frontend.pages.it-department.index', compact('members'));
+}
+
+public function administration()
+{
+    $members = \App\Models\Administration::active()->ordered()->get();
+    return view('frontend.pages.administration.index', compact('members'));
+}
+
+
+
+public function blog()
+{
+    $posts = \App\Models\BlogPost::published()
+                                 ->orderBy('published_at', 'desc')
+                                 ->paginate(6);
+    
+    $featuredPosts = \App\Models\BlogPost::published()
+                                        ->featured()
+                                        ->recent(3)
+                                        ->get();
+    
+    $categories = \App\Models\BlogPost::published()
+                                     ->select('category')
+                                     ->distinct()
+                                     ->pluck('category');
+    
+    return view('frontend.pages.blog.index', compact('posts', 'featuredPosts', 'categories'));
+}
+
+public function blogDetails($slug)
+{
+    $post = \App\Models\BlogPost::where('slug', $slug)
+                                ->published()
+                                ->firstOrFail();
+    
+    // Increment views
+    $post->increment('views');
+    
+    $relatedPosts = $post->relatedPosts(3);
+    $recentPosts = \App\Models\BlogPost::published()
+                                      ->where('id', '!=', $post->id)
+                                      ->recent(5)
+                                      ->get();
+    
+    return view('frontend.pages.blog.details', compact('post', 'relatedPosts', 'recentPosts'));
+}
+
+
+
+
+
 
     // Course details page
     public function view($id)
@@ -73,7 +178,7 @@ class FrontendDashboardController extends Controller
 
         // Course content sections
         $course_content = CourseSection::where('course_id', $course->id)
-                                        ->with('lecture')
+                                        ->with('course_lectures')
                                         ->get();
 
         // Get authenticated user ID (if any)

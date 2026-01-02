@@ -45,7 +45,7 @@
                 <i class="la la-times"></i>
             </div><!-- end off-canvas-menu-close -->
             <div class="logo-box px-4">
-                <a href="/" target="_blank" class="logo"><img src="{{ asset('frontend/images/logo.png') }}"
+                <a href="/" target="_blank" class="logo"><img src="{{ asset('frontend/images/civil_tech-logo 2.png') }}"
                         alt="logo"></a>
             </div>
 

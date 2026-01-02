@@ -10,31 +10,16 @@ if (! function_exists('convertYouTubeUrl')) {
     function convertYouTubeUrl($url) {
         if (!$url) return null;
 
-        // Already embed format
-        if (strpos($url, 'embed') !== false) {
-            return $url;
-        }
+        if (strpos($url, 'embed') !== false) return $url;
 
-        // Full YouTube link: https://www.youtube.com/watch?v=xxxx
-        if (preg_match('/watch\?v=([^\&\?]+)/', $url, $m)) {
-            return 'https://www.youtube.com/embed/' . $m[1];
-        }
-
-        // Short link: https://youtu.be/xxxx
-        if (preg_match('/youtu\.be\/([^\&\?]+)/', $url, $m)) {
-            return 'https://www.youtube.com/embed/' . $m[1];
-        }
-
-        // Maybe a raw video ID
-        if (preg_match('/^[A-Za-z0-9_-]{6,}$/', $url)) {
-            return 'https://www.youtube.com/embed/' . $url;
-        }
+        if (preg_match('/watch\?v=([^\&\?]+)/', $url, $m)) return 'https://www.youtube.com/embed/' . $m[1];
+        if (preg_match('/youtu\.be\/([^\&\?]+)/', $url, $m)) return 'https://www.youtube.com/embed/' . $m[1];
+        if (preg_match('/^[A-Za-z0-9_-]{6,}$/', $url)) return 'https://www.youtube.com/embed/' . $url;
 
         return $url;
     }
 }
 @endphp
-
 
 <div class="container">
 
@@ -72,7 +57,6 @@ if (! function_exists('convertYouTubeUrl')) {
                 <div class="collapse" id="section-{{ $section->id }}">
 
                     @foreach($section->course_lectures as $lecture)
-
                         <div class="lecture mb-3 p-3 border rounded">
 
                             <h6>
@@ -82,14 +66,11 @@ if (! function_exists('convertYouTubeUrl')) {
                                 @endif
                             </h6>
 
-                            {{-- ===================== --}}
-                            {{--        VIDEO          --}}
-                            {{-- ===================== --}}
+                            {{-- Video --}}
                             @if($lecture->url)
                                 @php 
                                     $videoUrl = convertYouTubeUrl($lecture->url); 
                                 @endphp
-
                                 @if($videoUrl)
                                     <div class="lecture-video mb-2">
                                         <iframe width="100%" height="400"
@@ -109,40 +90,71 @@ if (! function_exists('convertYouTubeUrl')) {
                                 </div>
                             @endif
 
-                            {{-- Lecture Resources (PDF preview + Download) --}}
+                            {{-- Lecture Resources --}}
                             @if(!empty($lecture->resources))
                                 @php
-                                    $ext = pathinfo($lecture->resources, PATHINFO_EXTENSION);
+                                    // Handle multiple resources (JSON array or single string)
+                                    $resources = json_decode($lecture->resources, true) ?: [$lecture->resources];
                                 @endphp
 
-                                <div class="lecture-resources mb-2">
-                                    @if(strtolower($ext) === 'pdf')
-                                        <embed src="{{ asset($lecture->resources) }}"
-                                               type="application/pdf" width="100%" height="400px">
-                                    @endif
+                                @foreach($resources as $resource)
+                                    @php
+                                        $ext = strtolower(pathinfo($resource, PATHINFO_EXTENSION));
+                                        $previewUrl = $ext === 'pdf' ? route('user.lecture.preview', $lecture->id) : null;
+                                        $downloadUrl = route('user.lecture.download', $lecture->id);
+                                    @endphp
 
-                                    <a href="{{ route('lecture.download', $lecture->id) }}"
-   class="btn btn-sm btn-outline-primary mt-2">
-    Download {{ strtoupper($ext) }}
-</a>
+                                    <div class="lecture-resources mb-3">
 
-                                </div>
+                                        @if($ext === 'pdf')
+                                            {{-- PDF inline preview --}}
+                                            <div class="resource-preview mb-2" style="border:1px solid #e6e6e6; border-radius:6px; overflow:hidden;">
+                                                <iframe src="{{ $previewUrl }}" width="100%" height="420" style="border:0;" title="PDF Preview"></iframe>
+                                            </div>
+                                            <div class="mt-2">
+                                                <a href="{{ $downloadUrl }}" class="btn btn-sm btn-primary">Download PDF</a>
+                                            </div>
+                                        @else
+                                            {{-- Non-PDF: show icon + Download --}}
+                                            <div class="resource-preview mb-2 p-3 d-flex align-items-center border rounded" style="background:#fafafa;">
+                                                <div style="width:48px; text-align:center; font-size:22px;">
+                                                    @if(in_array($ext, ['doc','docx']))
+                                                        <span class="oi oi-document" aria-hidden="true"></span>
+                                                    @elseif(in_array($ext, ['ppt','pptx']))
+                                                        <span class="oi oi-media-slideshow" aria-hidden="true"></span>
+                                                    @else
+                                                        <span class="oi oi-cloud-download" aria-hidden="true"></span>
+                                                    @endif
+                                                </div>
+
+                                                <div class="ml-3 flex-grow-1">
+                                                    <div><strong>{{ basename($resource) }}</strong></div>
+                                                    <div class="text-muted small">File type: {{ strtoupper($ext) }}</div>
+                                                </div>
+
+                                                <div class="ml-3">
+                                                    @if($ext === 'pdf')
+                                                        <a href="{{ $previewUrl }}" target="_blank" class="btn btn-sm btn-outline-secondary mr-2">Open</a>
+                                                    @endif
+                                                    <a href="{{ $downloadUrl }}" class="btn btn-sm btn-outline-primary">Download</a>
+                                                </div>
+                                            </div>
+                                        @endif
+
+                                    </div>
+                                @endforeach
                             @endif
 
                         </div>
                     @endforeach
 
                 </div>
-
             </div>
         @endforeach
-
     </div>
-
 </div>
 
 @endsection
-
 
 @push('scripts')
 <script>

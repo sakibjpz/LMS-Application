@@ -16,10 +16,12 @@
         <!--breadcrumb-->
         @include('backend.section.breadcrumb', ['title'=> 'Instructor', 'sub_title'=> 'Managed Instructor']);
         <!--end breadcrumb-->
-        <div style="display: flex; align-items:center; justify-content:space-between">
-            <h6 class="mb-0 text-uppercase">All Instructor</h6>
-
-        </div>
+       <div style="display: flex; align-items:center; justify-content:space-between">
+    <h6 class="mb-0 text-uppercase">All Instructor</h6>
+    <a href="/admin/instructor/create" class="btn btn-primary">
+        <i class="la la-plus"></i> Add New Instructor
+    </a>
+</div>
 
         <hr />
         <div class="card">
@@ -60,13 +62,20 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <div class="form-check form-switch" >
-                                            <input class="form-check-input" style="cursor: pointer" type="checkbox" role="switch"
-                                                id="flexSwitchCheckDefault{{ $item->id }}"
-                                                data-user-id="{{ $item->id }}"
-                                                {{ $item->status == 1 ? 'checked' : '' }}>
-                                        </div>
-                                    </td>
+    <div class="d-flex align-items-center">
+        <div class="form-check form-switch me-3">
+            <input class="form-check-input" style="cursor: pointer" type="checkbox" role="switch"
+                id="flexSwitchCheckDefault{{ $item->id }}"
+                data-user-id="{{ $item->id }}"
+                {{ $item->status == 1 ? 'checked' : '' }}>
+        </div>
+        <a href="{{ route('admin.instructor.edit', $item->id) }}" 
+           class="btn btn-sm btn-warning" 
+           title="Edit Profile">
+            Edit
+        </a>
+    </div>
+</td>
                                 </tr>
                             @endforeach
                         </tbody>
