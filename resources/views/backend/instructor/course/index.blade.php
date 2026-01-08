@@ -33,8 +33,8 @@
                                 <th>NO</th>
                                 <th>Thumbnail</th>
                                 <th>Course Name</th>
-                                <th>Category</th>
-                                <th>SubCategory</th>
+                                {{-- <th>Category</th>
+                                <th>SubCategory</th> --}}
                                 <th>Selling Price</th>
                                 <th>Discount Price</th>
                                 <th>Action</th>
@@ -55,10 +55,10 @@
                                     {{$item->course_name}}
                                 </td>
 
-                                <td>{{$item->category['name'] ?? Null }}</td>
+                                {{-- <td>{{$item->category['name'] ?? Null }}</td>
                                 <td>
                                     {{$item->subCategory['name'] ?? Null}}
-                                </td>
+                                </td> --}}
                                 <td>
                                     {{$item->selling_price}}
                                 </td>

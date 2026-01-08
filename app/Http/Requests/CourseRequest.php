@@ -23,28 +23,24 @@ class CourseRequest extends FormRequest
     {
         $courseId = $this->route('course');
         return [
-            'category_id' => 'required|integer|exists:categories,id',
-            'subcategory_id' => 'required|integer|exists:sub_categories,id',
-            'instructor_id' => 'required|integer|exists:users,id', // Assuming instructors are stored in users table
-            'course_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048', // Max 2MB
+            'instructor_id' => 'required|integer|exists:users,id',
+            'course_image' => 'nullable|image|mimes:jpg,jpeg,png,gif|max:2048',
             'course_title' => 'required|string',
             'course_name' => 'required|string',
-            'course_name_slug' => "nullable|string|unique:courses,course_name_slug,{$courseId}", // Update conditionally
+            'course_name_slug' => "nullable|string|unique:courses,course_name_slug,{$courseId}",
             'description' => 'required|string',
             'video_url' => 'required|url',
             'label' => 'nullable|string|max:100',
             'duration' => 'nullable',
-
             'resources' => 'nullable|string|max:255',
             'certificate' => 'nullable|string|max:100',
             'selling_price' => 'required|integer|min:0',
-            'discount_price' => 'nullable|integer|min:0|lte:selling_price', // Discount should not exceed selling price
+            'discount_price' => 'nullable|integer|min:0|lte:selling_price',
             'prerequisites' => 'nullable|string|max:10000',
             'bestseller' => 'nullable|in:yes,no',
             'featured' => 'nullable|in:yes,no',
             'highestrated' => 'nullable|in:yes,no',
             'course_goals.*' => 'nullable'
-
         ];
     }
 }

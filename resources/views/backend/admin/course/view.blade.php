@@ -49,7 +49,7 @@
                                     {{$course->course_title}}
                                 </span>
                             </li>
-                            <li class="list-group-item align-items-center">
+                            {{-- <li class="list-group-item align-items-center">
                                 <h6>Category</h6>
 
                                 <span class="">{{$course->category->name}}</span>
@@ -63,7 +63,7 @@
                                 <span class="">
                                     {{$course->subCategory->name}}
                                 </span>
-                            </li>
+                            </li> --}}
                             <li class="list-group-item align-items-center">
                                 <h6>Instructor</h6>
 

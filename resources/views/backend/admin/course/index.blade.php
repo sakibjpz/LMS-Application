@@ -45,9 +45,9 @@
                                 <th>Image</th>
                                 <th>Course Name</th>
                                 <th>Instructor</th>
-                                <th>Category</th>
+                                {{-- <th>Category</th> --}}
                                 <th>Price</th>
-                                <th>Show</th>
+                                {{-- <th>Show</th> --}}
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -72,7 +72,7 @@
                                         <span>${{$item->selling_price}}</span>
                                         @endif
                                     </td>
-                                    <td>
+                                    {{-- <td>
                                         <a href="{{route('admin.course.show', $item->id )}}" class="btn btn-primary">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill" viewBox="0 0 16 16">
                                                 <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0"/>
@@ -81,7 +81,7 @@
 
                                         </a>
 
-                                    </td>
+                                    </td> --}}
                                     <td>
                                         <div class="form-check form-switch" >
                                             <input class="form-check-input" style="cursor: pointer" type="checkbox" role="switch"

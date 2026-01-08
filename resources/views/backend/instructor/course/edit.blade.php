@@ -71,7 +71,7 @@
                                 value="{{ old('course_title', $course->course_title) }}">
                         </div>
 
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                             <label for="category" class="form-label">Choose Category</label>
                             <select class="form-select" name="category_id" id="category"
                                 data-placeholder="Choose a category">
@@ -82,16 +82,16 @@
                                     </option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> --}}
 
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                             <label for="subcategory" class="form-label">Select SubCategory</label>
                             <select class="form-select" name="subcategory_id" id="subcategory"
                                 data-placeholder="Choose a subcategory">
                                 <option value="{{ $course->subcategory_id }}" selected>{{ $course->subCategory['name'] }}
                                 </option>
                             </select>
-                        </div>
+                        </div> --}}
 
 
                         <div class="col-md-6">

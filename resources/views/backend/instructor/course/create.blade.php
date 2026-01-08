@@ -67,7 +67,7 @@
                                 placeholder="Enter the course title" value="{{ old('course_title') }}" required>
                         </div>
 
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                             <label for="category" class="form-label">Choose Category</label>
                             <select class="form-select" name="category_id" id="category"
                                 data-placeholder="Choose a category" required>
@@ -76,15 +76,15 @@
                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                 @endforeach
                             </select>
-                        </div>
+                        </div> --}}
 
-                        <div class="col-md-6">
+                        {{-- <div class="col-md-6">
                             <label for="subcategory" class="form-label">Select SubCategory</label>
                             <select class="form-select" name="subcategory_id" id="subcategory"
                                 data-placeholder="Choose a subcategory" required>
                                 <option value="" disabled selected>Select a subcategory</option>
                             </select>
-                        </div>
+                        </div> --}}
 
 
                         <div class="col-md-6">
