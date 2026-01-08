@@ -21,8 +21,8 @@
                         <sapn style="text-transform: capitalize">{{$course->label}}</sapn></li>
 
 
-            <li class="d-flex align-items-center justify-content-between"><span><i
-                        class="la la-users mr-2 text-color"></i>Students</span> 15</li>
+            {{-- <li class="d-flex align-items-center justify-content-between"><span><i
+                        class="la la-users mr-2 text-color"></i>Students</span> 15</li> --}}
             <li class="d-flex align-items-center justify-content-between"><span><i
                         class="la la-certificate mr-2 text-color"></i>Certificate</span> {{$course->certificate == 'yes' ? 'Yes' : 'No'}}
             </li>

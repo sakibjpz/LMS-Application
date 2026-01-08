@@ -29,6 +29,7 @@ use App\Http\Controllers\Admin\TestimonialController;
 use App\Http\Controllers\frontend\CallbackController;
 
 use App\Http\Controllers\frontend\CheckoutController;
+use App\Http\Controllers\backend\CtaSectionController;
 use App\Http\Controllers\backend\InstructorController;
 use App\Http\Controllers\backend\AdminCourseController;
 use App\Http\Controllers\backend\SiteSettingController;
@@ -41,6 +42,7 @@ use App\Http\Controllers\backend\CourseSectionController;
 use App\Http\Controllers\backend\AdministrationController;
 use App\Http\Controllers\backend\CallbackOptionController;
 use App\Http\Controllers\backend\AdminInstructorController;
+use App\Http\Controllers\backend\CallbackSectionController;
 use App\Http\Controllers\backend\RealLifeSectionController;
 use App\Http\Controllers\backend\InstructorProfileController;
 use App\Http\Controllers\frontend\FrontendDashboardController;
@@ -91,6 +93,7 @@ Route::resource('testimonials', TestimonialController::class);
 
 //call back
  Route::get('callback-requests', [AdminCallbackController::class, 'index'])->name('callback.index');
+ Route::resource('callback-section', CallbackSectionController::class);
 
 
  
@@ -108,6 +111,9 @@ Route::delete('/blog-image/{image}', [BlogController::class, 'deleteImage'])->na
 
 // Real Life Section Routes
 Route::resource('real-life-section', RealLifeSectionController::class);
+
+// CTA Section Routes
+Route::resource('cta-section', CtaSectionController::class);
 
  
 
@@ -295,6 +301,11 @@ Route::post('/remove/cart', [CartController::class, 'removeCart']);
 Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout.index');
 /* Coupon Apply    */
 Route::post('/apply-coupon', [CouponController::class, 'applyCoupon']);
+
+//call back route
+// Route::get('/call-book', function () {
+//     return view('frontend.section.callback');
+// })->name('call.book.page');
 
 
 /* Auth Protected Route */

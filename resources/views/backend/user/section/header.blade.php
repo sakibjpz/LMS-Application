@@ -22,19 +22,19 @@
                         </div><!-- end logo-box -->
 
                         <div class="menu-wrapper">
-                            <form method="post" class="mr-auto ml-0">
+                            {{-- <form method="post" class="mr-auto ml-0">
                                 <div class="form-group mb-0">
                                     <input class="form-control form--control form--control-gray pl-3" type="text" name="search" placeholder="Search for anything">
                                     <span class="la la-search search-icon"></span>
                                 </div>
-                            </form>
+                            </form> --}}
 
                             <div class="nav-right-button d-flex align-items-center">
                                 <div class="user-action-wrap d-flex align-items-center">
                                     
                                     <!-- Explore LMS Link -->
                                     <div>
-                                        <a style="margin-right: 25px" href="/" target="_blank">Explore LMS</a>
+                                        <a style="margin-right: 25px" href="/" target="_blank">Explore Website</a>
                                     </div>
 
                                     <!-- My Courses Dropdown -->
@@ -81,7 +81,7 @@
                                     </div><!-- end course-cart -->
 
                                     <!-- Cart Dropdown -->
-                                    <div class="shop-cart mr-4">
+                                    {{-- <div class="shop-cart mr-4">
                                     @php
     use Illuminate\Support\Facades\Auth;
 
@@ -118,12 +118,14 @@
                                                     </div>
                                                 </li>
                                             @empty
-                                                <li>No cart items</li>
-                                            @endforelse
+                                                {{-- <li>No cart items</li> --}}
+                                            {{-- @endforelse
                                         </ul>
-                                    </div><!-- end shop-cart -->
+                                    </div> --}}
+                              
+                                    <!-- end shop-cart -->
 
-                                    <!-- Wishlist Dropdown -->
+                                    {{-- <!-- Wishlist Dropdown -->
                                     <div id="wishlist-course">
                                         @php
                                             $userWishlist = auth()->user()->wishlist()->with('course')->get();
@@ -146,7 +148,7 @@
                                                 <li>No wishlist items</li>
                                             @endforelse
                                         </ul>
-                                    </div>
+                                    </div> --}}
 
                                     <!-- User Profile Dropdown -->
                                     <div class="shop-cart user-profile-cart">

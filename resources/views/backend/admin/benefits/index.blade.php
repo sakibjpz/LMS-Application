@@ -12,7 +12,7 @@
 
     <!-- List of Benefits -->
     <div class="row">
-        @foreach($benefits as $benefit)
+        @foreach($benefits as $index => $benefit)
             <div class="col-md-4">
                 <div class="card mb-3">
                     <div class="card-body">
@@ -26,18 +26,42 @@
                             </form>
                         </div>
 
-                        <form method="POST" action="{{ route('admin.benefit.update', $benefit->id) }}">
+                        <form method="POST" action="{{ route('admin.benefit.update', $benefit->id) }}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
 
-                            <label class="mt-2">Icon (SVG or IMG HTML)</label>
-                            <textarea name="icon" rows="4" class="form-control">{{ $benefit->icon }}</textarea>
+                            <!-- Current Icon Preview -->
+                            <div class="mb-2">
+                                <label>Current Icon:</label><br>
+                                @if($benefit->icon_image)
+                                    <img src="{{ asset($benefit->icon_image) }}" alt="Icon" style="width: 50px; height: 50px; object-fit: contain; background: #f8f9fa; padding: 5px; border-radius: 5px;">
+                                    <small class="d-block text-muted">Uploaded Image</small>
+                                @elseif($benefit->icon)
+                                    <div style="width: 50px; height: 50px; background: #f8f9fa; display: flex; align-items: center; justify-content: center; border-radius: 5px;">
+                                        <small>SVG Code</small>
+                                    </div>
+                                @else
+                                    <div style="width: 50px; height: 50px; background: #f8f9fa; display: flex; align-items: center; justify-content: center; border-radius: 5px;">
+                                        <small>No Icon</small>
+                                    </div>
+                                @endif
+                            </div>
 
-                            <label class="mt-2">Title</label>
-                            <input type="text" name="title" class="form-control" value="{{ $benefit->title }}">
+                            <!-- Upload New Image -->
+                            <label class="mt-2">Upload Icon Image</label>
+                            <input type="file" name="icon_image" class="form-control mb-2" accept="image/*">
+                            <small class="text-muted">Upload JPG, PNG, SVG, or WebP (max: 2MB)</small>
+
+                            <!-- OR Enter SVG Code -->
+                            <label class="mt-3">OR: SVG Code (Alternative)</label>
+                            <textarea name="icon" rows="3" class="form-control" placeholder="Paste SVG code here...">{{ $benefit->icon }}</textarea>
+                            <small class="text-muted">If you upload an image, this SVG will be ignored</small>
+
+                            <label class="mt-3">Benefit Title</label>
+                            <input type="text" name="title" class="form-control" value="{{ $benefit->title }}" required>
 
                             <label class="mt-2">Description</label>
-                            <textarea name="description" rows="3" class="form-control">{{ $benefit->description }}</textarea>
+                            <textarea name="description" rows="3" class="form-control" required>{{ $benefit->description }}</textarea>
 
                             <label class="mt-2">Icon Color Class</label>
                             <select name="icon_class" class="form-control">
@@ -55,6 +79,15 @@
                                 <input type="checkbox" name="is_active" value="1" {{ $benefit->is_active ? 'checked' : '' }}> Active
                             </label>
 
+                            <!-- Section Title - Only for first benefit -->
+                            @if($index === 0)
+                                <label class="mt-3">Section Main Title</label>
+                                <input type="text" name="section_title" class="form-control" value="{{ $benefit->section_title }}" placeholder="What you will get from Civil tech">
+                                <small class="text-muted">This title appears above ALL benefits (only set here)</small>
+                            @else
+                                <input type="hidden" name="section_title" value="">
+                            @endif
+
                             <button class="btn btn-success w-100 mt-3">Update</button>
                         </form>
 
@@ -71,7 +104,7 @@
 <div class="modal fade" id="addBenefitModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="POST" action="{{ route('admin.benefit.store') }}">
+            <form method="POST" action="{{ route('admin.benefit.store') }}" enctype="multipart/form-data">
                 @csrf
 
                 <div class="modal-header">
@@ -81,14 +114,19 @@
 
                 <div class="modal-body">
 
-                    <label>Icon (SVG or IMG HTML)</label>
-                    <textarea name="icon" class="form-control" rows="4"></textarea>
+                    <label>Upload Icon Image</label>
+                    <input type="file" name="icon_image" class="form-control mb-2" accept="image/*">
+                    <small class="text-muted">Upload JPG, PNG, SVG, or WebP (max: 2MB)</small>
 
-                    <label class="mt-2">Title</label>
-                    <input type="text" name="title" class="form-control">
+                    <label class="mt-3">OR: SVG Code (Alternative)</label>
+                    <textarea name="icon" class="form-control" rows="3" placeholder="Paste SVG code here..."></textarea>
+                    <small class="text-muted">If you upload an image, this SVG will be ignored</small>
+
+                    <label class="mt-3">Benefit Title</label>
+                    <input type="text" name="title" class="form-control" required>
 
                     <label class="mt-2">Description</label>
-                    <textarea name="description" rows="3" class="form-control"></textarea>
+                    <textarea name="description" rows="3" class="form-control" required></textarea>
 
                     <label class="mt-2">Icon Class</label>
                     <select name="icon_class" class="form-control">
@@ -105,6 +143,9 @@
                     <label class="mt-3">
                         <input type="checkbox" name="is_active" value="1" checked> Active
                     </label>
+
+                    <!-- Section Title field removed from add modal -->
+                    <input type="hidden" name="section_title" value="">
 
                 </div>
 

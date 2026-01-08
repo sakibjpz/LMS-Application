@@ -9,20 +9,22 @@
     <div class="container">
         <div class="cta-content-wrap text-center">
             <div class="section-heading">
-                <h5 class="ribbon ribbon-lg mb-3">সফল ক্যারিয়ার গড়তে সঠিক প্রোগ্রামটি বেছে নিন
-</h5>
-                <h2 class="section__title fs-25 lh-35">সফল ক্যারিয়ার গড়তে দরকার সঠিক জায়গায় নিজের সময় আর পরিশ্রম দেয়া। তাই বহুব্রীহি থেকেই অর্জন করুন <br> জব-রেডি হবার কনফিডেন্স আর স্কিল।</h2>
+                @if($ctaSection && $ctaSection->ribbon_text)
+                    <h5 class="ribbon ribbon-lg mb-3">{{ $ctaSection->ribbon_text }}</h5>
+                @endif
+                
+                @if($ctaSection && $ctaSection->main_text)
+                    <h2 class="section__title fs-25 lh-35">{!! nl2br(e($ctaSection->main_text)) !!}</h2>
+                @endif
             </div><!-- end section-heading -->
-        <div class="cat-btn-box mt-28px">
-    <a href="sign-up.html" class="btn theme-btn mr-2">
-        সকল কোর্স <i class="la la-arrow-right icon ml-1"></i>
+       <div class="cat-btn-box mt-28px">
+    <a href="{{ route('courses.all') }}" class="btn theme-btn mr-2">
+        All Courses <i class="la la-arrow-right icon ml-1"></i>
     </a>
-
-    <a href="sign-up.html" class="btn theme-btn ml-2">
-        কল বুক করুন <i class="la la-arrow-right icon ml-1"></i>
+    <a href="#callback-section" class="btn theme-btn ml-2" onclick="scrollToCallback()">
+        Call Book <i class="la la-arrow-right icon ml-1"></i>
     </a>
 </div>
-
         </div><!-- end cta-content-wrap -->
     </div><!-- end container -->
 </section><!-- end cta-area -->

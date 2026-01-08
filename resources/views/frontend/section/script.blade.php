@@ -71,6 +71,19 @@ s
 <script src="{{ asset('customjs/wishlist/index.js') }}"></script>
 <script src="{{asset('customjs/cart/index.js')}}"></script>
 
+<script>
+function scrollToCallback() {
+    const callbackSection = document.getElementById('callback-section');
+    if (callbackSection) {
+        callbackSection.scrollIntoView({ 
+            behavior: 'smooth',
+            block: 'start'
+        });
+    }
+    return false;
+}
+</script>
+
 
 
 

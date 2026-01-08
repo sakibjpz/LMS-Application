@@ -1,4 +1,4 @@
-<section class="callback-section">
+<section class="callback-section" id="callback-section">
     <div class="callback-container">
 
         <!-- Left Form -->
@@ -51,23 +51,29 @@
                         <option value="Afternoon 12-3">দুপুর ১২-৩টা</option>
                         <option value="Evening 3-6">বিকাল ৩-৬টা</option>
                     </select>
+
+                    
                 </div>
+                <!-- Message/Query Input -->
+<div class="form-group">
+    <textarea name="message" class="form-input" rows="3" placeholder="আপনার প্রশ্ন বা মেসেজ লিখুন (ঐচ্ছিক)"></textarea>
+</div>
 
                 <button type="submit" class="form-submit-btn">কল বুক করুন</button>
             </form>
         </div>
 
-        <!-- Right Content -->
-        <div class="callback-content">
-            <h2 class="callback-content-title">
-                ফ্রি কলে পরামর্শ নিন<br>
-                ক্যারিয়ার কাউন্সিলরের কাছ থেকে
-            </h2>
-            <p class="callback-content-description">
-                আপনি দেশ সর্ব্বোচ্চ ক্যারিয়ার সিঙ্গাউত নিতে পারেন, তার জন্য আমরা দিচ্ছি ফ্রি ক্যারিয়ার কাউন্সেলিং সাপোর্ট। 
-                ক্যারিয়ার নিয়ে আপনার বিভিন্ন প্রশ্নের উত্তর পাবেন অভিজ্ঞ ক্যারিয়ার কাউন্সেলরদের কাছ থেকে।
-            </p>
-        </div>
+     <!-- Right Content -->
+@if($callbackSection)
+<div class="callback-content">
+    <h2 class="callback-content-title">
+        {!! nl2br(e($callbackSection->content_title)) !!}
+    </h2>
+    <p class="callback-content-description">
+        {{ $callbackSection->content_description }}
+    </p>
+</div>
+@endif
 
     </div>
 </section>

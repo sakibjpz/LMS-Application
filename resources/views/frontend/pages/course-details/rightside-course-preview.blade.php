@@ -30,16 +30,29 @@
             </a>
         </div><!-- end preview-course-video -->
 
-        <div class="preview-course-feature-content pt-40px">
-            <p class="d-flex align-items-center pb-2">
-                <span class="fs-35 font-weight-semi-bold text-black">$76.99</span>
-                <span class="before-price mx-1">$104.99</span>
-                <span class="price-discount">24% off</span>
-            </p>
-            <p class="preview-price-discount-text pb-35px">
-                <span class="text-color-3">4 days</span> left at this price!
-            </p>
-
+       <div class="preview-course-feature-content pt-40px">
+    <p class="d-flex align-items-center pb-2">
+        @if($course->discount_price && $course->discount_price < $course->selling_price)
+            <!-- Show discounted price -->
+            <span class="fs-35 font-weight-semi-bold text-black">${{ number_format($course->discount_price, 2) }}</span>
+            <span class="before-price mx-1">${{ number_format($course->selling_price, 2) }}</span>
+            
+            @php
+                $discountPercentage = round((($course->selling_price - $course->discount_price) / $course->selling_price) * 100);
+            @endphp
+            <span class="price-discount">{{ $discountPercentage }}% off</span>
+        @else
+            <!-- Show regular price -->
+            <span class="fs-35 font-weight-semi-bold text-black">${{ number_format($course->selling_price, 2) }}</span>
+        @endif
+    </p>
+    
+    @if($course->discount_price && $course->discount_price < $course->selling_price)
+        <p class="preview-price-discount-text pb-35px">
+            <!-- You can add discount end date logic here if you have discount_end_date field -->
+            <span class="text-color-3">Limited time</span> offer!
+        </p>
+    @endif
             <!-- ===== Updated Buy / Cart Buttons ===== -->
             <div class="buy-course-btn-box">
                 @auth
@@ -73,24 +86,28 @@
 
             <p class="fs-14 text-center pb-4">30-Day Money-Back Guarantee</p>
 
-            <div class="preview-course-incentives">
-                <h3 class="card-title fs-18 pb-2">This course includes</h3>
-                <ul class="generic-list-item pb-3">
-                    <li><i class="la la-play-circle-o mr-2 text-color"></i>2.5 hours on-demand video</li>
-                    <li><i class="la la-file mr-2 text-color"></i>34 articles</li>
-                    <li><i class="la la-file-text mr-2 text-color"></i>12 downloadable resources</li>
-                    <li><i class="la la-code mr-2 text-color"></i>51 coding exercises</li>
-                    <li><i class="la la-key mr-2 text-color"></i>Full lifetime access</li>
-                    <li><i class="la la-television mr-2 text-color"></i>Access on mobile and TV</li>
-                    <li><i class="la la-certificate mr-2 text-color"></i>Certificate of Completion</li>
-                </ul>
-                <div class="section-block"></div>
-                <div class="buy-for-team-container pt-4">
-                    <h3 class="fs-18 font-weight-semi-bold pb-2">Training 5 or more people?</h3>
-                    <p class="lh-24 pb-3">Get your team access to 3,000+ top Aduca courses anytime, anywhere.</p>
-                    <a href="for-business.html" class="btn theme-btn theme-btn-sm theme-btn-transparent lh-30 w-100">Try Aduca for Business</a>
-                </div>
-            </div><!-- end preview-course-incentives -->
+          <div class="preview-course-incentives">
+    <h3 class="card-title fs-18 pb-2">This course includes</h3>
+    <ul class="generic-list-item pb-3">
+        {{-- @if($course->duration)
+            <li><i class="la la-play-circle-o mr-2 text-color"></i>{{ $course->duration }} hours on-demand video</li>
+        @endif
+         --}}
+        @if($course->resources)
+            <li><i class="la la-file-text mr-2 text-color"></i>{{ $course->resources }} downloadable resources</li>
+        @endif
+        
+        <li><i class="la la-key mr-2 text-color"></i>Full lifetime access</li>
+        {{-- <li><i class="la la-television mr-2 text-color"></i>Access on mobile and TV</li> --}}
+        
+        @if($course->certificate == 'yes')
+            <li><i class="la la-certificate mr-2 text-color"></i>Certificate of Completion</li>
+        @endif
+    </ul>
+    <div class="section-block"></div>
+    <!-- Removed "Training 5 or more people" section -->
+</div>
+<!-- end preview-course-incentives -->
         </div><!-- end preview-course-content -->
     </div>
 </div><!-- end card -->

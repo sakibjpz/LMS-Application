@@ -24,10 +24,6 @@ class FrontendDashboardController extends Controller
     $all_sliders = Slider::all();
     $all_info = InfoBox::all();
 
-    // $all_categories = Category::inRandomOrder()->limit(6)->get();
-    // $categories = Category::all();
-    // $course_category = Category::with('course', 'course.user', 'course.course_goal')->get();
-
     // 🔥 Load all benefits from DB
     $benefits = Benefit::all();
 
@@ -38,26 +34,34 @@ class FrontendDashboardController extends Controller
     
     // ✅ Fetch active Real Life Section
     $realLifeSection = \App\Models\RealLifeSection::active()->first();
+    
+    // ✅ Fetch active CTA Section
+    $ctaSection = \App\Models\CtaSection::where('is_active', true)->first();
+
+    // ✅ Fetch active funfacts ordered
+    $funfacts = \App\Models\Funfact::active()->ordered()->get();
+
+    // ✅ Fetch active callback section
+    $callbackSection = \App\Models\CallbackSection::active()->first();
 
     return view(
         'frontend.index',
-        compact('all_sliders', 'all_info',  'benefits', 'courses', 'testimonials', 'realLifeSection')
+        compact('all_sliders', 'all_info', 'benefits', 'courses', 'testimonials', 'realLifeSection', 'ctaSection', 'funfacts', 'callbackSection')
     );
 }
 
 
+//     public function wishlist()
+// {
+//     $userId = auth()->id(); // logged-in user
 
-    public function wishlist()
-{
-    $userId = auth()->id(); // logged-in user
+//     // Fetch wishlist items for this user
+//     $wishlistItems = Wishlist::where('user_id', $userId)
+//         ->with('course.user') // load related course + instructor
+//         ->get();
 
-    // Fetch wishlist items for this user
-    $wishlistItems = Wishlist::where('user_id', $userId)
-        ->with('course.user') // load related course + instructor
-        ->get();
-
-    return view('frontend.wishlist.index', compact('wishlistItems'));
-}
+//     return view('frontend.wishlist.index', compact('wishlistItems'));
+// }
 
 public function search(Request $request)
 {

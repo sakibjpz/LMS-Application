@@ -16,6 +16,7 @@ class CallbackRequest extends Model
         'course_id',
         'date',
         'time',
+        'message'
     ];
 
    

@@ -18,11 +18,19 @@ class CartController extends Controller
         $this->cartService = $cartService;
     }
 
-    public function index()
-    {
-        return view('frontend.pages.cart.index');
-    }
-
+   public function index()
+{
+    $guestToken = request()->cookie('guest_token') ?? Str::uuid();
+    
+    $cartItems = Cart::with('course.user')->where('guest_token', $guestToken)->get();
+    
+    $subtotal = $cartItems->sum(function ($cartItem) {
+        $price = $cartItem->course->discount_price ?? $cartItem->course->selling_price;
+        return $cartItem->quantity * ($price ?? 0);
+    });
+    
+    return view('frontend.pages.cart.index', compact('cartItems', 'subtotal'));
+}
 
 
     public function fetchCart(Request $request)

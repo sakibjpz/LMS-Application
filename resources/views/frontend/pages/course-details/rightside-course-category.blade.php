@@ -1,4 +1,4 @@
-<div class="card card-item">
+{{-- <div class="card card-item">
     <div class="card-body">
         <h3 class="card-title fs-18 pb-2">Course Categories</h3>
         <div class="divider"><span></span></div>
@@ -9,4 +9,4 @@
 
         </ul>
     </div>
-</div><!-- end card -->
+</div><!-- end card --> --}}

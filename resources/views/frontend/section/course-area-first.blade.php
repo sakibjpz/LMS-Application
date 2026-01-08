@@ -2,7 +2,7 @@
     <div class="container">
         <div class="section-heading text-center">
             <h5 class="ribbon ribbon-lg mb-2">Choose your desired courses</h5>
-            <h2 class="section__title">The world's largest selection of courses</h2>
+            <h2 class="section__title">An endless catalog of skills at your fingertips</h2>
             <span class="section-divider"></span>
         </div><!-- end section-heading -->
     </div><!-- end container -->
@@ -73,7 +73,7 @@
             </div><!-- end row -->
 
             <div class="more-btn-box mt-4 text-center">
-                <a href="{{ route('all-courses') }}" class="btn theme-btn">
+                <a href="{{ route('courses.all') }}" class="btn theme-btn">
                     Browse all Courses <i class="la la-arrow-right icon ml-1"></i>
                 </a>
             </div><!-- end more-btn-box -->

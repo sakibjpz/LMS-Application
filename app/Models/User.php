@@ -34,10 +34,10 @@ class User extends Authenticatable
     }
 
     // 3. User Wishlist
-    public function wishlist()
-    {
-        return $this->hasMany(\App\Models\Wishlist::class, 'user_id', 'id');
-    }
+    // public function wishlist()
+    // {
+    //     return $this->hasMany(\App\Models\Wishlist::class, 'user_id', 'id');
+    // }
 
     // 4. Courses taught by instructor
 public function courses()

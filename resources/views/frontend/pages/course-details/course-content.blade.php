@@ -16,9 +16,9 @@
                     <span class="curriculum-total__text mr-2"><strong
                         class="text-black font-weight-semi-bold">Total:</strong> {{$total_lecture}} lectures</span>
 
-                    <span class="curriculum-total__hours"><strong
-                            class="text-black font-weight-semi-bold">Total hours:</strong>
-                        02:35:47</span>
+                   <span class="curriculum-total__hours"><strong
+        class="text-black font-weight-semi-bold">Total hours:</strong>
+    {{ $total_lecture_duration }}</span>
                 </div>
             </div>
             <div class="curriculum-content">

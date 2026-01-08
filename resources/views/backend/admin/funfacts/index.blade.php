@@ -17,30 +17,23 @@
             Add New Funfact
         </div>
         <div class="card-body">
-            <form action="{{ route('admin.funfacts.store') }}" method="POST" class="row g-3" enctype="multipart/form-data">
+            <form action="{{ route('admin.funfacts.store') }}" method="POST" class="row g-3">
                 @csrf
                 <div class="col-md-4">
-                    <input type="text" name="title" class="form-control" placeholder="Title" required>
+                    <input type="text" name="title" class="form-control" placeholder="Title (e.g., expert instructors)" required>
+                </div>
+                <div class="col-md-3">
+                    <input type="text" name="count" class="form-control" placeholder="Count (e.g., 7520)" required>
                 </div>
                 <div class="col-md-2">
-                    <input type="number" name="value" class="form-control" placeholder="Value" required>
+                    <input type="number" name="order" class="form-control" placeholder="Order" value="0">
                 </div>
-                <div class="col-md-2">
-    <input type="file" name="svg_icon" class="form-control" accept=".svg">
-</div>
-
-                <div class="col-md-2">
-                    <input type="text" name="color_class" class="form-control" placeholder="Color Class">
-                </div>
-                <div class="col-md-1">
-                    <input type="number" name="sort_order" class="form-control" placeholder="Sort">
-                </div>
-                <div class="col-md-1 form-check">
+                <div class="col-md-2 form-check">
                     <input type="checkbox" name="is_active" class="form-check-input" id="addIsActive" checked>
                     <label class="form-check-label" for="addIsActive">Active</label>
                 </div>
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Add Funfact</button>
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-primary">Add</button>
                 </div>
             </form>
         </div>
@@ -56,10 +49,8 @@
                 <thead class="table-dark">
                     <tr>
                         <th>Title</th>
-                        <th>Value</th>
-                        <th>SVG Icon</th>
-                        <th>Color Class</th>
-                        <th>Sort Order</th>
+                        <th>Count</th>
+                        <th>Order</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
@@ -68,15 +59,8 @@
                     @foreach($funfacts as $funfact)
                     <tr>
                         <td>{{ $funfact->title }}</td>
-                        <td>{{ $funfact->value }}</td>
-                       <td>
-    @if($funfact->svg_icon)
-        <img src="{{ asset($funfact->svg_icon) }}" alt="SVG Icon" width="40">
-    @endif
-</td>
-
-                        <td>{{ $funfact->color_class }}</td>
-                        <td>{{ $funfact->sort_order }}</td>
+                        <td>{{ $funfact->count }}</td>
+                        <td>{{ $funfact->order }}</td>
                         <td>
                             @if($funfact->is_active)
                                 <span class="badge bg-success">Active</span>
@@ -87,12 +71,12 @@
                         <td>
                             <!-- Edit Button -->
                             <button class="btn btn-sm btn-warning" 
-                                onclick="openEditModal({{ $funfact->id }}, '{{ $funfact->title }}', {{ $funfact->value }}, '{{ $funfact->svg_icon }}', '{{ $funfact->color_class }}', {{ $funfact->sort_order }}, {{ $funfact->is_active ? 1 : 0 }})">
+                                onclick="openEditModal({{ $funfact->id }}, '{{ $funfact->title }}', '{{ $funfact->count }}', {{ $funfact->order }}, {{ $funfact->is_active ? 1 : 0 }})">
                                 Edit
                             </button>
 
                             <!-- Delete Button -->
-                            <form action="{{ route('funfacts.destroy', $funfact->id) }}" method="POST" class="d-inline-block">
+                            <form action="{{ route('admin.funfacts.destroy', $funfact->id) }}" method="POST" class="d-inline-block">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
@@ -122,16 +106,10 @@
                         <input type="text" name="title" id="editTitle" class="form-control" placeholder="Title" required>
                     </div>
                     <div class="col-md-6">
-                        <input type="number" name="value" id="editValue" class="form-control" placeholder="Value" required>
+                        <input type="text" name="count" id="editCount" class="form-control" placeholder="Count" required>
                     </div>
                     <div class="col-md-6">
-                        <input type="text" name="svg_icon" id="editSvgIcon" class="form-control" placeholder="SVG Icon">
-                    </div>
-                    <div class="col-md-6">
-                        <input type="text" name="color_class" id="editColorClass" class="form-control" placeholder="Color Class">
-                    </div>
-                    <div class="col-md-6">
-                        <input type="number" name="sort_order" id="editSortOrder" class="form-control" placeholder="Sort Order">
+                        <input type="number" name="order" id="editOrder" class="form-control" placeholder="Order">
                     </div>
                     <div class="col-md-6 form-check">
                         <input type="checkbox" name="is_active" class="form-check-input" id="editIsActive">
@@ -146,4 +124,21 @@
         </div>
     </div>
 </div>
+
+<script>
+function openEditModal(id, title, count, order, isActive) {
+    // Set form action
+    document.getElementById('editForm').action = '/admin/funfacts/' + id;
+    
+    // Set form values
+    document.getElementById('editTitle').value = title;
+    document.getElementById('editCount').value = count;
+    document.getElementById('editOrder').value = order;
+    document.getElementById('editIsActive').checked = isActive;
+    
+    // Show modal
+    var editModal = new bootstrap.Modal(document.getElementById('editModal'));
+    editModal.show();
+}
+</script>
 @endsection

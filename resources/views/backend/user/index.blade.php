@@ -21,7 +21,7 @@
     </div>
 
     <!-- Wishlist Courses -->
-    <div class="col-lg-4 responsive-column-half">
+    {{-- <div class="col-lg-4 responsive-column-half">
         <div class="card card-item dashboard-info-card shadow-sm">
             <div class="card-body d-flex align-items-center">
                 <div class="icon-element flex-shrink-0 bg-2 text-white rounded-circle p-3">
@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>
 
 <!-- ========================= -->
@@ -89,6 +89,6 @@
 @endsection
 
 @push('scripts')
-    <script src="{{ asset('customjs/user/wishlist.js') }}"></script>
+    {{-- <script src="{{ asset('customjs/user/wishlist.js') }}"></script> --}}
     <script src="{{ asset('customjs/cart/index.js') }}"></script>
 @endpush

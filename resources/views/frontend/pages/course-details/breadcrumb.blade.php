@@ -17,7 +17,7 @@
                     <h6 class="ribbon ribbon-lg mr-2 bg-3 text-white" style="text-transform: capitalize">
                         {{ $course->label }}</h6>
 
-                    <div class="rating-wrap d-flex flex-wrap align-items-center">
+                    {{-- <div class="rating-wrap d-flex flex-wrap align-items-center">
                         <div class="review-stars">
                             <span class="rating-number">4.4</span>
                             <span class="la la-star"></span>
@@ -28,7 +28,7 @@
                         </div>
                         <span class="rating-total pl-1">(20,230 ratings)</span>
                         <span class="student-total pl-2">540,815 students</span>
-                    </div>
+                    </div> --}}
                 </div><!-- end d-flex -->
 
                 <p class="pt-2 pb-1">Created by <a href="teacher-detail.html"
@@ -52,7 +52,7 @@
                         English
                     </p>
                 </div><!-- end d-flex -->
-                <div class="bread-btn-box pt-3">
+                {{-- <div class="bread-btn-box pt-3">
                     <button class="btn theme-btn theme-btn-sm theme-btn-transparent lh-28 mr-2 mb-2">
                         <i class="la la-heart-o mr-1"></i>
                         <span class="swapping-btn" data-text-swap="Wishlisted"
@@ -66,7 +66,7 @@
                         data-toggle="modal" data-target="#reportModal">
                         <i class="la la-flag mr-1"></i>Report abuse
                     </button>
-                </div>
+                </div> --}}
             </div><!-- end breadcrumb-content -->
         </div><!-- end col-lg-8 -->
     </div><!-- end container -->

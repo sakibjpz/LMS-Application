@@ -1,4 +1,4 @@
-<div class="course-overview-card pt-4">
+{{-- <div class="course-overview-card pt-4">
     <h3 class="fs-24 font-weight-semi-bold pb-4">Reviews</h3>
     <div class="review-wrap">
         <div class="d-flex flex-wrap align-items-center pb-4">
@@ -112,7 +112,7 @@
         <button type="button" class="btn theme-btn theme-btn-transparent">Load more
             reviews</button>
     </div>
-</div><!-- end course-overview-card -->
+</div><!-- end course-overview-card --> --}}
 <div class="course-overview-card pt-4">
     <h3 class="fs-24 font-weight-semi-bold pb-4">Add a Review</h3>
     <div class="leave-rating-wrap pb-4">

@@ -4,28 +4,21 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Funfact extends Model
+class CallbackSection extends Model
 {
     protected $fillable = [
-        'count',
-        'title',
+        'content_title',
+        'content_description',
         'is_active',
-        'order',
     ];
 
     protected $casts = [
         'is_active' => 'boolean',
     ];
 
-    // Scope to get only active funfacts
+    // Scope to get only active sections
     public function scopeActive($query)
     {
         return $query->where('is_active', true);
-    }
-
-    // Order by order field
-    public function scopeOrdered($query)
-    {
-        return $query->orderBy('order');
     }
 }

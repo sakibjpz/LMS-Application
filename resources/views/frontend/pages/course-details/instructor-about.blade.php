@@ -7,13 +7,13 @@
                     <img class="lazy" src="{{ $course['user']['photo'] }}"
                         data-src="{{ $course['user']['photo'] }}" alt="Avatar image">
                 </a>
-                <ul class="generic-list-item pt-3">
+                {{-- <ul class="generic-list-item pt-3">
                     <li><i class="la la-star mr-2 text-color-3"></i> 4.6 Instructor Rating</li>
                     <li><i class="la la-user mr-2 text-color-3"></i> 45,786 Students</li>
                     <li><i class="la la-comment-o mr-2 text-color-3"></i> 2,533 Reviews</li>
                     <li><i class="la la-play-circle-o mr-2 text-color-3"></i> 24 Courses</li>
                     <li><a href="teacher-detail.html">View all Courses</a></li>
-                </ul>
+                </ul> --}}
             </div><!-- end instructor-img -->
             <div class="media-body">
                 <h5><a href="#">{{ $course['user']['name'] }}</a></h5>

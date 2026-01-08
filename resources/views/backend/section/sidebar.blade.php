@@ -146,6 +146,12 @@
                 <i class='bx bx-radio-circle'></i>Real Life Section
             </a>
         </li>
+
+        <li class="{{ setSidebar(['admin.callback-section*']) }}">
+    <a href="{{ route('admin.callback-section.index') }}">
+        <i class='bx bx-radio-circle'></i>Manage Callback Section
+    </a>
+</li>
         
         <li class="{{ setSidebar(['admin.callback*']) }}">
             <a href="{{ route('admin.callback.index') }}">
@@ -165,6 +171,12 @@
             </a>
         </li>
 
+        <li class="{{ setSidebar(['admin.cta-section*']) }}">
+    <a href="{{ route('admin.cta-section.index') }}">
+        <i class='bx bx-radio-circle'></i>Manage CTA Section
+    </a>
+</li>
+
         <li class="{{ setSidebar(['admin.partner*']) }}">
             <a href="{{route('admin.partner.index')}}"><i class='bx bx-radio-circle'></i>Manage Partner</a>
         </li>
@@ -177,7 +189,7 @@
 
 
 
-         <li>
+         {{-- <li>
             <a href="javascript:;" class="has-arrow">
                 <div class="parent-icon"><i class="bx bx-category"></i>
                 </div>
@@ -198,7 +210,7 @@
 
 
             </ul>
-        </li>
+        </li> --}}
 
 
 
