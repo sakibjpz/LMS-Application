@@ -92,16 +92,42 @@ class CartController extends Controller
     }
 
     public function removeCart(Request $request)
-    {
-        $cartItem = Cart::find($request->id); // Change 'Cart' to your model
-        if (!$cartItem) {
-            return response()->json(['status' => 'error', 'message' => 'Cart item not found']);
-        }
+{
+    $guestToken = $request->cookie('guest_token');
 
-        $cartItem->delete(); // Remove the course from the cart
+    $cartItem = Cart::where('id', $request->id)
+        ->where('guest_token', $guestToken)
+        ->first();
 
-        return response()->json(['status' => 'success', 'message' => 'Course removed from cart']);
+    if (!$cartItem) {
+        return response()->json([
+            'status' => 'error',
+            'message' => 'Cart item not found'
+        ]);
     }
+
+    // Remove item
+    $cartItem->delete();
+
+    // Recalculate subtotal (coupon-ready)
+    $cartItems = Cart::with('course')
+        ->where('guest_token', $guestToken)
+        ->get();
+
+    $subtotal = $cartItems->sum(function ($cartItem) {
+        $price = $cartItem->course->discount_price 
+            ?? $cartItem->course->selling_price;
+
+        return $cartItem->quantity * ($price ?? 0);
+    });
+
+    return response()->json([
+        'status'   => 'success',
+        'message'  => 'Course removed from cart',
+        'subtotal' => round($subtotal, 2)
+    ]);
+}
+
 
     
 }

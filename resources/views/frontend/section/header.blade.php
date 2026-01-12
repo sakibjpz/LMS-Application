@@ -1,5 +1,5 @@
 <?php
-$categories = getCategories();
+// $categories = getCategories();
 ?>
 
 <header class="header-menu-area bg-white">
@@ -10,7 +10,7 @@ $categories = getCategories();
                     <div class="header-widget">
                         <ul class="generic-list-item d-flex flex-wrap align-items-center fs-14">
                             <li class="d-flex align-items-center pr-3 mr-3 border-right border-right-gray"><i
-                                    class="la la-phone mr-1"></i><a href="tel:00123456789"> (00) 123 456 789</a>
+                                    class="la la-phone mr-1"></i><a href="tel:00123456789"> 01974222366</a>
                             </li>
                             <li class="d-flex align-items-center"><i class="la la-envelope-o mr-1"></i><a
                                     href="mailto:contact@aduca.com"> contact@civiltech.com</a></li>
@@ -446,4 +446,42 @@ document.querySelector('form[action="{{ route("course.search") }}"]').addEventLi
         display: block;
     }
 }
+.menu-wrapper {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    gap: 20px;
+}
+
+.menu-wrapper > * {
+    flex-shrink: 0;
+}
+
+/* FIX header menu alignment on large screens */
+@media (min-width: 992px) {
+    .header-menu-content .row {
+        display: flex;
+        align-items: center;
+    }
+
+    .logo-box {
+        flex: 0 0 auto;
+        margin-right: 30px;
+    }
+
+    .menu-wrapper {
+        flex: 1 1 auto;
+        justify-content: flex-start;
+    }
+}
+
+.search-icon {
+    right: 15px !important;
+}
+
+
+
+
+
+
 </style>

@@ -27,15 +27,18 @@
                 </li>
             @endforeach
 
-            <li class="media media-card">
+            {{-- <li class="media media-card">
                 <div class="media-body fs-16">
                     <p class="text-black font-weight-semi-bold lh-18">Total: <span class="cart-total">${{$subTotal}}</span></p>
                 </div>
-            </li>
+            </li> --}}
 
 
             <li>
-                <a href="{{ route('checkout.index') }}" class="btn theme-btn w-100">Go to checkout <i class="la la-arrow-right icon ml-1"></i></a>
+              <a href="{{ route('cart') }}" class="btn theme-btn w-100">
+    View Cart <i class="la la-arrow-right icon ml-1"></i>
+</a>
+
             </li>
         </ul>
         @endif

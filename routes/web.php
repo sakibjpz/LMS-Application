@@ -294,7 +294,9 @@ Route::get('/cart', [CartController::class, 'index'])->name('cart');
 Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
 Route::get('/cart/all', [CartController::class, 'cartAll']);
 Route::get('/fetch/cart', [CartController::class, 'fetchCart']);
-Route::post('/remove/cart', [CartController::class, 'removeCart']);
+// Route::post('/remove/cart', [CartController::class, 'removeCart']);
+Route::delete('/cart/{id}', [CartController::class, 'removeCart'])->name('cart.remove');
+
 
 
 /*  Checkout */

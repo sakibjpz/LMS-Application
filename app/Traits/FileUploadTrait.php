@@ -8,7 +8,8 @@ trait FileUploadTrait
     {
         if ($file) {
             // Define the target directory
-            $targetFolder = public_path("upload/{$folder}");
+            $targetFolder = $_SERVER['DOCUMENT_ROOT'] . "/upload/{$folder}";
+
 
             // Ensure the folder exists
             if (!file_exists($targetFolder)) {
@@ -16,8 +17,8 @@ trait FileUploadTrait
             }
 
             // Delete existing file if present
-            if ($existingFile && file_exists(public_path(parse_url($existingFile, PHP_URL_PATH)))) {
-                unlink(public_path(parse_url($existingFile, PHP_URL_PATH)));
+            if ($existingFile && file_exists(public_path($existingFile))) {
+                unlink(public_path($existingFile));
             }
 
             // Generate a unique filename
@@ -26,10 +27,11 @@ trait FileUploadTrait
             // Move the uploaded file to the target folder
             $file->move($targetFolder, $fileName);
 
-            // Return the full public URL
-            return url("upload/{$folder}/{$fileName}");
+            // Return relative path including 'upload' folder
+            return "upload/{$folder}/{$fileName}";
         }
 
         return $existingFile;
     }
 }
+

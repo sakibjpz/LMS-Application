@@ -89,37 +89,38 @@ class CouponController extends Controller
     }
 
     public function applyCoupon(ApplyCouponRequest $request)
-    {
+{
+    // Validate the input
+    $validated = $request->validated();
 
-        // Validate the input
-        $validated = $request->validated();
+    $couponName = $validated['coupon'];
+    $courseIds = $validated['course_id'];
+    $instructorIds = $validated['instructor_id'];
 
-        $couponName = $validated['coupon'];
-        $courseIds = $validated['course_id'];
-        $instructorIds = $validated['instructor_id'];
+    // Apply the coupon using the service
+    $discounts = $this->applyCouponService->applyCoupon($couponName, $courseIds, $instructorIds);
 
-        $discounts =  $this->applyCouponService->applyCoupon($couponName, $courseIds, $instructorIds);
-
-        // If no valid coupon found
-        if (empty($discounts)) {
-            return response()->json([
-                'success' => false,
-                'message' => 'No valid coupon found for the selected courses.',
-            ], 400);
-        }
-
-        // Calculate total discount
-        $totalDiscount = collect($discounts)->sum('discount');
-
-        // Store total discount in session
-        session(['coupon' => $totalDiscount]);
-
-
-        // Success response
+    // If no valid coupon found
+    if (empty($discounts)) {
         return response()->json([
-            'success' => true,
-            'message' => 'Coupon applied successfully!',
-            'discounts' => $discounts,
-        ]);
+            'success' => false,
+            'message' => 'No valid coupon found for the selected courses.',
+        ], 400);
     }
+
+    // Calculate total discount
+    $totalDiscount = collect($discounts)->sum('discount');
+
+    // Store total discount in session
+    session(['coupon' => $totalDiscount]);
+
+    // Return response including total_discount for frontend
+    return response()->json([
+        'success' => true,
+        'message' => 'Coupon applied successfully!',
+        'discounts' => $discounts,
+        'total_discount' => $totalDiscount, // <-- crucial for live update
+    ]);
+}
+
 }

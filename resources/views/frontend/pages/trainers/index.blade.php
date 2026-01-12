@@ -35,10 +35,11 @@
                         <!-- Trainer Image -->
                         <div class="trainer-img-wrapper">
                             @if($trainer->photo)
-                                <img src="{{ asset('storage/' . $trainer->photo) }}" 
-                                     class="card-img-top trainer-img"
-                                     alt="{{ $trainer->name }}">
-                            @else
+    <img src="{{ asset($trainer->photo) }}" 
+         class="card-img-top trainer-img"
+         alt="{{ $trainer->name }}">
+@else
+
                                 <div class="trainer-placeholder d-flex align-items-center justify-content-center">
                                     <i class="la la-user la-4x text-light"></i>
                                 </div>
