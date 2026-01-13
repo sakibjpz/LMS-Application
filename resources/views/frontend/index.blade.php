@@ -1,5 +1,9 @@
 @extends('frontend.master')
 
+
+@section('title', 'Civil Tech Skills | Civil Engineering & Technical Courses')
+@section('meta_description', 'Learn civil engineering, technical, and professional skills online with Civil Tech Skills. Industry-focused courses designed for career growth in Bangladesh.')
+
 @section('content')
 
 @include('frontend.section.hero')

@@ -3,7 +3,18 @@
 
 <head>
 
-    <title>Civil Tech - Learning Management System</title>
+   <title>@yield('title', 'Civil Tech Skills | Online Learning Platform')</title>
+
+
+   <meta name="description" content="@yield('meta_description', 'Civil Tech Skills is Bangladesh’s leading online learning platform offering civil engineering, technical, and professional skill development courses. Learn industry-relevant skills, advance your career, and get certified online.')">
+
+<meta name="keywords" content="Civil Tech Skills, Civil Engineering Courses, Online Learning Platform, LMS Bangladesh, Technical Training, Skill Development Courses, Professional Training, Online Courses Bangladesh, Civil Engineering Online Courses, Technical Skill Development Online, Career-focused Training Bangladesh, Industry-relevant Civil Engineering Courses, Online Technical Certification, Professional Skill Development, Engineering Skill Courses, Learn Civil Engineering Online, Bangladesh Technical Learning Platform, Civil Tech Education, Civil Engineering Skills, Online Professional Courses, Technical Skills Online Bangladesh, Skill Improvement Courses, Career Advancement Courses">
+
+<meta name="author" content="Civil Tech Skills">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+
 
     <!-- Google fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">

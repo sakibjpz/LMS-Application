@@ -1,4 +1,8 @@
 <section class="hero-area">
+    <h1 class="sr-only">
+Civil Engineering & Technical Skill Development Courses in Bangladesh
+</h1>
+
     <div class="hero-slider owl-action-styled">
 
         @foreach($all_sliders as $item)
